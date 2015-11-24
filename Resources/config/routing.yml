@@ -1,0 +1,64 @@
+portal_homepage:
+    path:     /
+    defaults: { _controller: PortalBundle:Default:index }
+
+portal_admin:
+    path:     /admin
+    defaults: { _controller: PortalBundle:Default:admin }
+    options:
+        expose: true
+
+portal_all_tiles:
+    path:     /all_tiles
+    defaults: { _controller: PortalBundle:Default:getTiles }
+    options:
+        expose: true
+
+portal_product_name:
+    path:   /iux_params
+    defaults: { _controller: PortalBundle:Default:getIUXParams }
+    options:
+        expose: true
+
+portal_login:
+    path:   /portal_login
+    defaults: { _controller: PortalBundle:Default:login }
+    options:
+        expose: true
+
+portal_logout:
+    path:   /portal_logout
+    defaults: { _controller: PortalBundle:Default:logout }
+    options:
+        expose: true
+
+portal_authenticated_user:
+    path:   /authenticated_user
+    defaults: { _controller: PortalBundle:Default:getUser }
+    options:
+        expose: true
+
+portal_change_property:
+    path:   /change_property
+    defaults: { _controller: PortalBundle:Default:changeProperty }
+    methods: [POST]
+    options:
+        expose: true
+
+portal_tile:
+    prefix:   /portal
+    type:     annotation
+    resource: "@PortalBundle/Controller/TileController.php"
+
+portal_content:
+    prefix:   /portal
+    type:     annotation
+    resource: "@PortalBundle/Controller/ContentController.php"
+
+portal_tilegroup:
+    prefix:   /portal
+    type:     annotation
+    resource: "@PortalBundle/Controller/TileGroupController.php"
+
+fos_js_routing:
+    resource: "@FOSJsRoutingBundle/Resources/config/routing/routing.xml"

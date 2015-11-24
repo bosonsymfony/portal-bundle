@@ -1,0 +1,17 @@
+{% extends 'PortalBundle::base-admin.html.twig' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/portal/plugins/dropzone/css/dropzone.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h1>Imagenese</h1>
+    <form method="post" enctype="multipart/form-data" action="{{ asset('bundles/portal/plugins/dropzone/upload.php') }}" class="dropzone" id="my-dropzone">
+        <input type="file" name="file">
+    </form>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('bundles/portal/plugins/dropzone/dropzone.js') }}"></script>
+
+{% endblock %}

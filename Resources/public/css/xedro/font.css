@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+/*Efectos para la fuente */
+
+.linea{
+
+    color:#A52586 ; /*violeta xedro*/
+    /*width: 0.9em;*/
+    font-size: 0.85em;
+    font-family: novason;
+    display: inline;
+    margin-top: 1px;
+    font-weight: bold;
+    padding: 1px;
+    /*text-shadow: 0px 0px 1px #AEAEAE;*/
+}
+
+.prod{
+    color:#002a80 ;
+    font-family: electro;
+    font-size: 2.1em;
+    display: inline;
+    /*text-shadow: -1px 0px 0px #AEAEAE;*/
+    font-weight: lighter;
+}
+
+.eslogan{
+    color:#000080 ;
+    font-family: aller;
+    font-size: 0.8em;
+    font-style: normal;
+    margin-left: 5px;
+    display: inline;
+    font-weight:900;
+    padding: 0px;
+    /*text-shadow: 2px 0px 2px #AEAEAE;*/
+    /*margin-top: -2px;*/
+}

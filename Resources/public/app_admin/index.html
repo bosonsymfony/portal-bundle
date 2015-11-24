@@ -1,0 +1,29 @@
+<div class="flex-grid" style="height: 100%">
+    <div class="row" style="height: 100%">
+        <div class="cell" id="cell-sidebar" style="height: 100% !important;">
+            <ul class="sidebar" style="height: 100%">
+                <li ui-sref-active="active">
+                    <a ui-sref="main.tile">
+                        <span class="mif-apps icon"></span>
+                        <span class="title">tile</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="main.tilegroup">
+                        <span class="mif-apps icon"></span>
+                        <span class="title">tile group</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="main.content">
+                        <span class="mif-apps icon"></span>
+                        <span class="title">content</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="cell auto-size padding20 bg-white" id="cell-content" ui-view="">
+        </div>
+    </div>
+
+</div>

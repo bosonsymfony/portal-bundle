@@ -1,0 +1,38 @@
+tilegroup:
+    path:     /
+    defaults: { _controller: "PortalBundle:TileGroup:index" }
+
+tilegroup_show:
+    path:     /{id}/show
+    defaults: { _controller: "PortalBundle:TileGroup:show" }
+
+tilegroup_new:
+    path:     /new
+    defaults: { _controller: "PortalBundle:TileGroup:new" }
+
+tilegroup_create:
+    path:     /create
+    defaults: { _controller: "PortalBundle:TileGroup:create" }
+    requirements: { _method: post }
+
+tilegroup_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "PortalBundle:TileGroup:edit" }
+
+tilegroup_update:
+    path:     /{id}/update
+    defaults: { _controller: "PortalBundle:TileGroup:update" }
+    requirements: { _method: post|put }
+
+tilegroup_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "PortalBundle:TileGroup:delete" }
+    requirements: { _method: post|delete }
+
+tilegroup_json:
+    path:     /json
+    defaults: { _controller: "PortalBundle:Default:json" }
+
+tilegroup_user:
+    path:     /user
+    defaults: { _controller: "PortalBundle:Default:usuario" }

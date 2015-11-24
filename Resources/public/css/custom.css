@@ -1,0 +1,536 @@
+body {
+    height: 100%;
+}
+
+.loading {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 1000;
+}
+
+.preload {
+    height: 40px;
+    width: 40px;
+    margin-top: -20px;
+    margin-left: -20px;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+}
+
+.preloader-square .square {
+    width: 30px !important;
+    height: 30px !important;
+}
+
+.preloader-square .square:nth-child(1) {
+    top: 32px !important;
+}
+
+.preloader-square .square:nth-child(2) {
+    left: 32px !important;
+    top: 32px !important;
+}
+
+.preloader-square .square:nth-child(4) {
+    left: 32px !important;
+}
+
+.preloader-square {
+    width: 64px;
+    height: 64px;
+}
+
+.tile {
+    width: 120px !important;
+    height: 120px !important;
+    margin: 3px;
+}
+
+.tile-small {
+    width: 57px !important;
+    height: 57px !important;
+    margin: 3px;
+}
+
+.tile-square {
+    width: 120px !important;
+    height: 120px !important;
+    margin: 3px;
+}
+
+.tile-wide {
+    width: 246px !important;
+    height: 120px !important;
+    margin: 3px;
+}
+
+.tile-large {
+    width: 246px !important;
+    height: 246px !important;
+    margin: 3px;
+}
+
+.tile-area-controls {
+    position: fixed;
+    right: 40px;
+    top: 40px;
+}
+
+.tile-group {
+    /*left: 100px;*/
+    margin-right: 46px !important;
+    margin-left: 0 !important;
+
+}
+
+.tile-area {
+    padding: 120px 0 0 80px !important;
+}
+
+.tile-content.iconic .icon {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    font-size: 48px;
+    top: 50%;
+    margin-top: -24px;
+    left: 50%;
+    margin-left: -24px;
+    text-align: center;
+    font-style: normal;
+}
+
+.tile-square .tile-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 0.425rem 0.625rem;
+    z-index: 999;
+    font-size: 10pt;
+}
+
+.top-bar {
+    top: 0;
+    bottom: auto;
+    position: fixed;
+    z-index: 1030;
+    left: 0;
+    width: 100%;
+    display: block;
+    color: #fff;
+    background-color: #333;
+    padding: 1px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.vis-top {
+    top: 0;
+    bottom: auto;
+    position: fixed;
+    z-index: 1029;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    display: block;
+    color: #fff;
+    padding: 1px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.vis-left {
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 1028;
+    height: 100%;
+    width: 10px;
+    /*width: 90px;*/
+}
+
+.bar-icon {
+    float: left;
+    background-color: darkred;
+    /*position: relative;*/
+    /*padding-right: 20px;*/
+    padding: 2px 10px 2px 10px;
+    height: 1.4rem;
+}
+
+.bar-title {
+    display: inline;
+    /*height: 100%;*/
+    vertical-align: middle;
+    height: 1.4rem;
+    font-family: aller;
+    /*text-align: center;*/
+    /*width: 100%;*/
+}
+
+.bar-buttons {
+    float: right;
+    /*display: block;*/
+}
+
+.btn-min:hover {
+    background-color: #008287 !important;
+}
+
+.btn-close:hover {
+    background-color: #9A1616 !important;
+}
+
+.btn-min, .btn-close {
+    font-size: 20px !important;
+    margin: 0 !important;
+    line-height: 16px !important;
+    border: 0 !important;
+    font-family: "Segoe UI Light_", "Open Sans Light", Verdana, Arial, Helvetica, sans-serif !important;
+}
+
+.scroller {
+    padding-left: 5px;
+    padding-top: 7px;
+    padding-right: 5px;
+}
+
+/*button{*/
+/*font-size: 20px !important;*/
+/*}*/
+
+.left-bar {
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 1029;
+    height: 100%;
+    /*width: 90px;*/
+    background-color: #333;
+}
+
+.functionView {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 1027;
+    background: #FFFFFF
+}
+
+/* when hiding the picture */
+.ng-hide-add {
+    animation: 0.5s lightSpeedOut ease;
+}
+
+/* when showing the picture */
+.ng-hide-remove {
+    animation: 0.5s flipInX ease;
+}
+
+/* ANIMATIONS (FROM ANIMATE.CSS) ======================== */
+/* flip in */
+@keyframes flipInX {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+/* light speed out */
+@keyframes lightSpeedOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.background {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 110% 105%;
+    height: 100%;
+}
+
+.fondo {
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-size: 110% 105%;
+    height: 100%;
+    width: 110%;
+}
+
+.metro .user-id-image .dropdown-toggle::after {
+    visibility: hidden;
+}
+
+.dropdown.open ul.dropdown-menu {
+    display: block !important;
+    right: 0;
+}
+
+.color-list li {
+    display: inline-block;
+    padding: 10px;
+    width: 14.2875%;
+    margin: 0;
+
+}
+
+.color-list .p50 {
+    width: 40% !important;
+}
+
+.color-list input {
+    float: left;
+    margin-right: 5px;
+}
+
+.color-list label {
+    margin: 0;
+    vertical-align: middle;
+    /*padding-left: 5px;*/
+}
+
+.backgrounds {
+    background-color: #D9D9D9;
+}
+
+.contents {
+    background-color: #D9D9D9;
+}
+
+.contents li {
+    font-size: x-large;
+    vertical-align: middle;
+}
+
+.slimScrollDiv {
+    margin-bottom: 7pt;
+}
+
+#nombre-producto-svg {
+
+    font-family: electrofield;
+    font-size: 27px;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+#nombre-subproducto-svg {
+    font-family: novason;
+    text-transform: capitalize;
+    font-size: 27px;
+    position: relative;
+    left: 3px;
+    fill: #331562;
+}
+
+.generico {
+    font-family: aller;
+    font-size: 10px;
+    fill: #331562;
+    position: relative;
+}
+
+#generico-inferior-svg {
+    position: relative;
+    top: 0;
+    left: 0;
+    display: block;
+}
+
+#output-canvas {
+    left: -1000px;
+    top: -1000px;
+    position: absolute;
+}
+
+#outter {
+    position: absolute;
+    font-family: aller;
+    font-size: 10px;
+    opacity: 0;
+    left: -1000px;
+    top: -1000px;
+}
+
+#outter-producto {
+    position: absolute;
+    font-family: electrofield;
+    font-size: 27px;
+    text-transform: uppercase;
+    opacity: 0;
+    left: -1000px;
+    top: -1000px;
+}
+
+#outter-subproducto {
+    position: absolute;
+    font-family: novason;
+    text-transform: capitalize;
+    font-size: 27px;
+    opacity: 0;
+    left: -1000px;
+    top: -1000px;
+}
+
+#outter-superior {
+    position: absolute;
+    font-family: aller;
+    font-size: 10px;
+    opacity: 0;
+    left: -1000px;
+    top: -1000px;
+}
+
+#outter-inferior {
+    position: absolute;
+    font-family: aller;
+    font-size: 10px;
+    opacity: 0;
+    left: -1000px;
+    top: -1000px;
+}
+
+#generar {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+}
+
+.tile-area .tile-area-title {
+    top: 40px;
+    width: 400px;
+}
+
+svg {
+    width: 100%;
+}
+
+body {
+    font-family: aller !important;
+}
+
+#logo-familia {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#logo-text {
+    position: absolute;
+    top: 10px;
+    left: 51px;
+}
+
+#input-search {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
+
+.content-icon-search {
+    position: absolute;
+    right: 0;
+    z-index: 1;
+    width: 2.125rem;
+    height: 2.125rem;
+    margin: 0 !important;
+}
+
+.content-search-large {
+    width: 10.875rem !important;
+    background-color: white;
+}
+
+.content-search-large #input-search {
+    padding-right: 2.125rem !important;
+}
+
+.content-search-small input {
+    border: 0;
+    cursor: pointer !important;
+}
+
+.tile-area-controls .input-control {
+    transition-property: width;
+    transition-duration: 0.5s;
+}
+
+.tile-area-controls .input-control.text {
+    width: 2.125rem;
+}
+
+.tile-group-title {
+    color: #090643 !important;
+}
+
+.pagination .item.input {
+    padding: 0;
+}
+
+.pagination .item {
+    height: 30px;
+}
+
+.pagination .input-control {
+    margin: 0;
+}
+
+.pagination input {
+    font-size: 0.875rem;
+    width: 70px;
+    height: auto;
+    padding: 0.25rem;
+}
+
+td.actions a {
+    margin: 0;
+    padding: 0.2rem 0.625rem;
+}
+
+.table tbody td {
+    padding: 0.425rem;
+}
+
+.select2-container--default .select2-selection--single {
+    border-radius: 0 !important;
+}
+
+.select2-container--default .select2-selection--multiple {
+    border-radius: 0 !important;
+}
+
+.border-solid {
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+}
+
+.padding-2 {
+    padding: 2px;
+}
+
+.height-100 {
+    height: 22px;
+    width: auto;
+}
+
+.select2 {
+    width: 100% !important;
+}
+
+.tile-content {
+    height: 100% !important;
+}
+

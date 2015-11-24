@@ -1,0 +1,219 @@
+<!-- Loading -->
+<div class="loading bg-linea fg-white" ng-show="loaded.user && loaded.tilegs && loaded.logo">
+    <div class="preload">
+        <div data-role="preloader" data-type="square" style="margin: auto"></div>
+    </div>
+</div>
+<!-- End Loading -->
+
+<!-- Array de iframes funcionalidades-->
+<div class="functionView" ng-repeat="windows in arrayWindow" ng-show="windows.visible">
+    <iframe style="height: 100%; width: 100%" src="{{ windows.url }}"></iframe>
+</div>
+<!-- End Array de iframes funcionalidades-->
+
+<!-- Barra de titulo con botones cerrar-->
+<div class="vis-top" ng-mouseover="changeTopShow()">
+    <div class="top-bar" ng-show="topshow" ng-mouseleave="topshow = false">
+        <div class="bar-icon">
+            <span class="icon {{ actualfunc.icon }}"></span>
+        </div>
+        <div class="bar-title">
+            {{ actualfunc.title }}
+        </div>
+        <div class="bar-buttons">
+            <button class="button btn-close mini-button bg-dark fg-white place-right"
+                    ng-click="closeWindow(actualfunc.id)">
+                <strong>&times;</strong>
+            </button>
+            <button class="button btn-min mini-button bg-dark fg-white place-right" ng-click="minWindow(actualfunc.id)">
+                <strong>&ndash;</strong>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- End Barra de titulo con botones cerrar-->
+
+<!-- Barra lateral -->
+<div class="vis-left" ng-mouseover="leftshow = true">
+    <div class="left-bar" ng-show="leftshow" ng-mouseleave="leftshow = false">
+        <div class="scroller">
+            <div ng-repeat="tilehalf in arrayWindow"
+                 ng-class="['tile-small', 'bg-linea','fg-white', (tilehalf.visible)?'element-selected':'']"
+                 style="display: block !important; float: none !important;" ng-click="activeWindow(tilehalf.id)">
+                <!-- Type icon -->
+                <div ng-if="tilehalf.icon.type == 'icon'" class="tile-content iconic">
+                    <i ng-class="['icon', tilehalf.icon.icon ]"></i>
+                </div>
+                <!-- Type image -->
+                <div ng-if="tilehalf.icon.type == 'image'"
+                     ng-class="['tile-content',(tilehalf.icon.tipo == 'icon')?'iconic':'image-container']">
+                    <div ng-if="tilehalf.icon.tipo == 'image'" class="frame">
+                        <img ng-src="{{ url }}/bundles/portal/img/{{ tilehalf.icon.path}}">
+                    </div>
+                    <img ng-if="tilehalf.icon.tipo == 'icon'" class="icon"
+                         ng-src="{{ url }}/bundles/portal/img/{{ tilehalf.icon.path}}">
+                </div>
+                <!-- Type image-set -->
+                <div ng-if="tilehalf.icon.type == 'image-set'" class="tile-content image-set">
+                    <img ng-repeat="path in tilehalf.icon.paths" ng-src="{{ url }}/bundles/portal/img/{{ path}}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Barra lateral -->
+
+<!--<div class="fondo">-->
+<div class="tile-area fg-white">
+
+    <!-- Logo y nombre -->
+    <div class="tile-area-title">
+        <svg>
+            <defs>
+                <linearGradient id="textgradient" x1="0%" x2="0%" y1="0%" y2="100%">
+                    <stop stop-color="#343D72" offset="0%"></stop>
+                    <stop stop-color="#323993" offset="51%"></stop>
+                    <stop stop-color="#090643" offset="51%"></stop>
+                    <stop stop-color="#1B195A" offset="100%"></stop>
+                </linearGradient>
+            </defs>
+            <image id="logo-familia" x="0" y="0" width="90" height="44" xlink:href="{{ logo }}">
+            </image>
+            <text dy="0" y="35" x="51">
+                <tspan id="nombre-producto-svg" style="fill: url(#textgradient);">{{ iux_params.producto }}</tspan>
+                <tspan id="nombre-subproducto-svg" dx="3"></tspan>
+                <tspan id="generico-superior-svg" class="generico" dy="-12" dx="3"></tspan>
+                <tspan id="generico-inferior-svg" class="generico" dy="0" dx="0">{{ iux_params.eslogan }}</tspan>
+            </text>
+        </svg>
+    </div>
+    <!-- End Logo y nombre -->
+
+    <!-- Boton login -->
+    <div ng-if="user != null && user == 'anon.'" class="tile-area-controls">
+        <form method="get" action="{{ login }}" style="display: inline-block">
+            <button class="square-button bg-transparent fg-linea bg-hover-linea fg-hover-white no-border"
+                    style="width: auto; padding-left: 0.53125rem; padding-right: 0.53125rem">
+                <span class="mif-key"></span> Login
+            </button>
+        </form>
+    </div>
+    <!-- End Boton login -->
+
+    <!-- Barra de usuario -->
+    <div ng-if="user != null && user != 'anon.'" class="tile-area-controls">
+        <button class="image-button icon-right bg-transparent fg-linea bg-hover-linea fg-hover-white no-border">
+            <span class="sub-header no-margin text-light">{{ user }}</span>
+            <span class="icon mif-user fg-white"></span>
+        </button>
+        <div ng-class="[($parent.showCharmSearch)?'content-search-large':'content-search-small']"
+             class="input-control text" data-role="input">
+            <input type="text" ng-model="$parent.search" id="input-search"
+                   placeholder="{{ ($parent.showCharmSearch)?'Buscar':'' }}"
+                   ng-focus="$parent.showCharmSearch = true"
+                   ng-blur="$parent.onInputBlur()">
+
+            <div class="content-icon-search square-button bg-transparent fg-linea bg-hover-linea fg-hover-white no-border">
+                <span class="mif-search"></span>
+            </div>
+        </div>
+        <form method="get" action="{{ admin }}" style="display: inline-block">
+            <button class="square-button bg-transparent fg-linea bg-hover-linea fg-hover-white no-border"
+                    type="submit">
+                <span class="mif-cog"></span>
+            </button>
+        </form>
+
+        <form method="get" action="{{ logout }}" style="display: inline-block">
+            <button class="square-button bg-transparent fg-linea bg-hover-linea fg-hover-white no-border"
+                    type="submit">
+                <span class="mif-switch"></span>
+            </button>
+        </form>
+    </div>
+    <!-- End Barra de usuario -->
+
+    <!-- TileGroups -->
+    <div ng-repeat="tileg in tilegs" class="tile-group" ng-style="{'max-width': '{{ tileg.size }}px'}">
+        <span ng-if="tileg.title" class="tile-group-title fg-linea">
+            {{ tileg.title }}
+        </span>
+
+        <!-- Tile container -->
+        <div class="tile-container">
+
+            <!-- Tiles -->
+            <div ng-repeat="tile in tileg.myTiles | filter:search"
+                 ng-class="[ tile.size , 'bg-linea', (tile.selected)?'element-selected':'' ]"
+                 data-role="tile"
+                 data-effect="{{ tile.dataEffect }}"
+                 ng-click="$parent.createWindow(tile)">
+
+                <!-- Tile content -->
+                <div class="tile-content">
+                    <div class="live-slide" ng-repeat="content in tile.contents">
+                        <!-- Type icon -->
+                        <div ng-if="content.type == 'icon'" class="tile-content iconic">
+                            <i ng-class="['icon', content.icon ]"></i>
+                        </div>
+                        <!-- Type image -->
+                        <div ng-if="content.type == 'image'"
+                             ng-class="['tile-content',(content.tipo == 'icon')?'iconic':'image-container']">
+                            <div ng-if="content.tipo == 'image'" class="frame">
+                                <img ng-src="{{ url }}/bundles/portal/img/{{ content.path}}">
+                            </div>
+                            <img ng-if="content.tipo == 'icon'" class="icon"
+                                 ng-src="{{ url }}/bundles/portal/img/{{ content.path}}">
+                        </div>
+                        <!-- Type image-set -->
+                        <div ng-if="content.type == 'image-set'" class="tile-content image-set">
+                            <img ng-repeat="path in content.paths" ng-src="{{ url }}/bundles/portal/img/{{ path}}">
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div ng-if="tile.size != 'tile-small'" class="tile-label">
+                    {{ tile.funcionalidad.nombre }}
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- End TileGroups -->
+</div>
+
+<!--</div>-->
+
+<script>
+    $('.scroller').slimScroll({
+        height: '100%',
+        alwaysVisible: true,
+        color: '#fff',
+        wheelStep: 1,
+        allowPageScroll: true
+    });
+
+    $('.scroller').mouseover(function () {
+        $('body').unmousewheel();
+    });
+
+    $('.scroller').mouseout(function () {
+        $("body").mousewheel(function (event, delta) {
+            var scroll_value = delta * 50;
+            $(document).scrollLeft($(document).scrollLeft() - scroll_value);
+            return false;
+        });
+    });
+
+    $(document).scroll(function () {
+        var scrollled = $(document).scrollLeft();
+        var body_width = $('body').width();
+        if (scrollled < body_width) {
+            $('body').css('background-position', -(scrollled * 0.05) + 'px 0px');
+        }
+    })
+</script>

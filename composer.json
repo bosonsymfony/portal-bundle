@@ -1,0 +1,52 @@
+{
+    "name": "boson/portal-bundle",
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "description": "Paquete Portal de Bosón",
+    "keywords": ["metroui","portal","frontend","boson"],
+    "authors": [
+        {
+            "name": "Julio Cesar Ocaña Bermudez",
+            "email": "jcocana@uci.cu"
+        }
+    ],
+    "autoload": {
+        "psr-0": {  "UCI\\Boson\\PortalBundle":"" }
+    },
+    "require": {
+        "php": ">=5.4",
+        "symfony/symfony": "2.3.*",
+        "doctrine/orm": "~2.2,>=2.2.3",
+        "doctrine/doctrine-bundle": "~1.2",
+        "doctrine/data-fixtures": "~1.0",
+        "doctrine/doctrine-fixtures-bundle": "2.2",
+        "jms/serializer-bundle": "0.13.*",
+        "boson/seguridad-bundle": "~1.0",
+        "boson/integrator-bundle": "~1.0",
+        "friendsofsymfony/jsrouting-bundle": "1.5.4"
+    },
+    "require-dev":{
+        "php": ">=5.4",
+        "symfony/symfony": "2.3.*",
+        "doctrine/orm": "~2.2,>=2.2.3",
+        "doctrine/doctrine-bundle": "~1.2",
+        "doctrine/data-fixtures": "~1.0",
+        "doctrine/doctrine-fixtures-bundle": "2.2",
+        "jms/serializer-bundle": "0.13.*",
+        "boson/seguridad-bundle": "~1.0",
+        "boson/integrator-bundle": "~1.0",
+        "elao/web-profiler-extra-bundle":"dev-master"
+    },
+    "target-dir": "UCI/Boson/PortalBundle",
+    "scripts": {
+        "post-install-cmd": [
+            "UCI\\Boson\\IntegratorBundle\\Composer\\ScriptHandler::buildResourceDir",
+            "UCI\\Boson\\IntegratorBundle\\Composer\\ScriptHandler::buildDefinitionSchema"
+        ],
+        "post-update-cmd": [
+            "UCI\\Boson\\IntegratorBundle\\Composer\\ScriptHandler::buildResourceDir",
+            "UCI\\Boson\\IntegratorBundle\\Composer\\ScriptHandler::buildDefinitionSchema"
+        ]
+    },
+     "minimum-stability": "dev"
+}
