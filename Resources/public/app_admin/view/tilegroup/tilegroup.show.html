@@ -1,0 +1,36 @@
+<h1 class="text-light">
+    <a ui-sref="main.tilegroup" class="button cycle-button">
+        <span class="mif-arrow-left"></span>
+    </a> Show tilegroup {{ $stateParams.id }}
+</h1>
+<hr class="thin bg-grayLighter">
+
+<div class="grid">
+    <div class="row cells2">
+        <div class="">
+            <div>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td>Title:</td>
+                        <td>
+                            {{ tilegroup.title }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Size:</td>
+                        <td>
+                            {{ tilegroup.size }}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a class="button primary" ui-sref="main.tilegroup_update({id:tilegroup.id})">
+    Update
+</a>
+

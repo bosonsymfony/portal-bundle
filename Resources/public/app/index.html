@@ -1,7 +1,7 @@
 <!-- Loading -->
-<div class="loading bg-linea fg-white" ng-show="loaded.user && loaded.tilegs && loaded.logo">
+<div class="loading bg-linea fg-white" ng-hide="!(loaded.user && loaded.tilegs && loaded.logo)">
     <div class="preload">
-        <div data-role="preloader" data-type="square" style="margin: auto"></div>
+        <div data-role="preloader" data-type="ring" style="margin: auto"></div>
     </div>
 </div>
 <!-- End Loading -->

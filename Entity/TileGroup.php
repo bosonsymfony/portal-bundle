@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * TileGroup
  *
  * @ORM\Table("por_tilegroup")
- * @ORM\Entity(repositoryClass="UCI\Boson\PortalBundle\Entity\TileGroupRepository")
+ * @ORM\Entity(repositoryClass="UCI\Boson\PortalBundle\Repository\TileGroupRepository")
  */
 class TileGroup
 {
@@ -50,7 +50,7 @@ class TileGroup
     private $titleForeground;
 
     /**
-     * @ORM\OneToMany(targetEntity="UCI\Boson\PortalBundle\Entity\Tile", mappedBy="tileGroup", fetch="EAGER")
+     * @ORM\OneToMany(targetEntity="UCI\Boson\PortalBundle\Entity\Tile", mappedBy="tileGroup", cascade={"remove"})
      */
     private $myTiles;
 

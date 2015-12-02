@@ -5,8 +5,9 @@ namespace UCI\Boson\PortalBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use UCI\Boson\SeguridadBundle\Controller\AutenticableController;
 
-class DefaultController extends Controller
+class DefaultController extends Controller implements AutenticableController
 {
     public function indexAction()
     {

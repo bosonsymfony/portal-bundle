@@ -1,0 +1,44 @@
+<h1 class="text-light" style="display: inline-block">
+    <a ui-sref="main.tilegroup" class="button cycle-button">
+        <span class="mif-arrow-left"></span>
+    </a> Update tilegroup
+</h1>
+<h1 class="text-light" style="display: inline-block">
+    &nbsp{{ $stateParams.id }}
+</h1>
+<hr class="thin bg-grayLighter">
+<form name="futbol_PortalBundle_tilegroup" method="post" ng-submit="submit()">
+    <div class="grid">
+        <div class="row cells2">
+            <div class="cell auto-size">
+                <label>Title</label>
+
+                <div class="input-control text full-size">
+                    <input type="text" id="title"
+                           name="futbol_PortalBundle_tilegroup[title]"
+                           ng-model="data['futbol_PortalBundle_tilegroup[title]']"
+                           maxlength="255"/>
+                </div>
+            </div>
+            <div class="cell auto-size">
+                <label>Size (in pixeles)</label>
+
+                <div class="input-control text full-size">
+                    <input type="number" id="size"
+                           name="futbol_PortalBundle_tilegroup[size]"
+                           ng-model="data['futbol_PortalBundle_tilegroup[size]']"
+                           required="required"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <button class="button success" type="submit" name="futbol_PortalBundle_tilegroup[submit]">
+            Update
+        </button>
+        <a class="button" ui-sref="main.tilegroup">
+            Cancelar
+        </a>
+    </div>
+</form>

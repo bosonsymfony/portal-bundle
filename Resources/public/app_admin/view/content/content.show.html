@@ -1,0 +1,39 @@
+<h1 class="text-light">
+    <a ui-sref="main.content" class="button cycle-button">
+        <span class="mif-arrow-left"></span>
+    </a> Show content {{ $stateParams.id }}
+</h1>
+<hr class="thin bg-grayLighter">
+<div class="grid">
+    <div class="row cells2">
+        <div class="">
+            <div ng-class="[(content.type == 'image-set')?'tile-wide':'tile-square']">
+                <!-- Tile content -->
+                <div class="tile-content">
+                    <div class="live-slide">
+                        <!-- Type icon -->
+                        <div ng-if="content.type == 'icon'" class="tile-content iconic">
+                            <i ng-class="['icon', content.icon ]"></i>
+                        </div>
+                        <!-- Type image -->
+                        <div ng-if="content.type == 'image'"
+                             ng-class="['tile-content',(content.tipo == 'icon')?'iconic':'image-container']">
+                            <div ng-if="content.tipo == 'image'" class="frame">
+                                <img ng-src="{{ url }}/bundles/portal/img/{{ content.path}}">
+                            </div>
+                            <img ng-if="content.tipo == 'icon'" class="icon"
+                                 ng-src="{{ url }}/bundles/portal/img/{{ content.path}}">
+                        </div>
+                        <!-- Type image-set -->
+                        <div ng-if="content.type == 'image-set'" class="tile-content image-set">
+                            <img ng-repeat="path in content.paths" ng-src="{{ url }}/bundles/portal/img/{{ path}}">
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class=""></div>
+    </div>
+</div>

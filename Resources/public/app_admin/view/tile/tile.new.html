@@ -1,0 +1,121 @@
+<h1 class="text-light">
+    <a ui-sref="main.tile_" class="button cycle-button">
+        <span class="mif-arrow-left"></span>
+    </a> Nuevo tile
+</h1>
+<hr class="thin bg-grayLighter">
+<form name="futbol_PortalBundle_tile" ng-submit="submit()" method="post">
+    <div class="grid">
+        <div class="row cells2">
+            <div class="cell auto-size">
+                <label class="input-control checkbox">
+                    <input type="checkbox"
+                           name="futbol_PortalBundle_tile[selected]"
+                           ng-model="data['futbol_PortalBundle_tile[selected]']">
+                    <span class="check"></span>
+                    <span class="caption">Selected</span>
+                </label>
+
+            </div>
+        </div>
+        <div class="row cells2">
+            <div class="cell auto-size">
+                <label>Backgroung</label>
+
+                <div class="input-control select full-size">
+
+                    <select id="backgroung" name="futbol_PortalBundle_tile[backgroung]"
+                            ng-model="data['futbol_PortalBundle_tile[backgroung]']">
+                        <option value=""></option>
+                        <option ng-repeat="(key, color) in styles.colors" value="{{ key }}">
+                            {{ color }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="cell auto-size">
+                <label>Size</label>
+
+                <div class="input-control select full-size">
+                    <select id="size" name="futbol_PortalBundle_tile[size]"
+                            ng-model="data['futbol_PortalBundle_tile[size]']">
+                        <option value=""></option>
+                        <option ng-repeat="(key, size) in styles.sizes" value="{{ key }}">{{ size }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row cells2">
+
+            <div class="cell auto-size">
+                <div class="input-control select full-size">
+                    <label class="required">Data effect</label>
+                    <select id="dataEffect" name="futbol_PortalBundle_tile[dataEffect]"
+                            ng-model="data['futbol_PortalBundle_tile[dataEffect]']">
+                        <option value=""></option>
+                        <option ng-repeat="(key, effect) in styles.effects" value="{{ key }}">{{ effect }}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="cell auto-size">
+                <div class="input-control select multiple full-size">
+                    <label>Contents</label>
+                    <select id="contents"
+                            name="futbol_PortalBundle_tile[contents][]"
+                            ng-model="data['futbol_PortalBundle_tile[contents]']"
+                            multiple="multiple">
+                        <option ng-repeat="content in contents" value="{{ content.id }}">
+                            {{ toStringContent(content) }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row cells2">
+            <div class="cell auto-size">
+
+                <label>Tile group</label>
+
+                <div class="input-control select full-size">
+                    <select id="tileGroup" name="futbol_PortalBundle_tile[tileGroup]"
+                            ng-model="data['futbol_PortalBundle_tile[tileGroup]']">
+                        <option value=""></option>
+                        <option ng-repeat="tileg in tilegs" value="{{ tileg.id }}">
+                            {{ tileg.title }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+            <div class="cell auto-size">
+
+                <label>Funcionalidad</label>
+
+                <div class="input-control select full-size">
+                    <select id="funcionalidad" name="futbol_PortalBundle_tile[funcionalidad]"
+                            ng-model="data['futbol_PortalBundle_tile[funcionalidad]']">
+                        <option value=""></option>
+                        <option ng-repeat="_function in functions" value="{{ _function.id }}">
+                            {{ _function.nombre }}
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<input type="hidden" name="futbol_PortalBundle_tile[_token]"-->
+    <!--value="_rtpVmE8eJbQmG1ml6yCMg8i2w3WuYqN_CyPQt2guLc"-->
+    <!--ng-model="data['futbol_PortalBundle_tile[_token]']">-->
+
+    <div>
+        <button class="button success" type="submit" name="futbol_PortalBundle_tile[submit]">
+            Crear
+        </button>
+        <a class="button" ui-sref="main.tile_">
+            Cancelar
+        </a>
+    </div>
+
+</form>

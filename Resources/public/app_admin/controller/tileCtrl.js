@@ -3,7 +3,7 @@
  */
 
 admin
-    .controller('tileCtrl', ['$scope', 'tileSvc', 'utilSvc', function ($scope, tileSvc, utilSvc) {
+    .controller('tileCtrl', ['$scope', 'tileSvc', 'utilSvc', 'modals', function ($scope, tileSvc, utilSvc, modals) {
 
         $scope.dataTable = {
             columns: {
@@ -23,7 +23,7 @@ admin
                     name: 'Backgroung',
                     type: 'string'
                 },
-                tileGroup: {
+                'tileGroup.title': {
                     name: 'tileGroup',
                     type: 'string'
                 },
@@ -76,7 +76,7 @@ admin
 
         $scope.isLast = function (cant_elementos) {
             var lastPage = Math.floor(cant_elementos / $scope.limit);
-            return ($scope.currentPage == lastPage);
+            return ($scope.currentPage == lastPage || cant_elementos == $scope.limit);
         };
 
         $scope.toInt = function (value) {
@@ -86,19 +86,19 @@ admin
         $scope.loadData = function () {
             tileSvc.getTiles()
                 .success(
-                    function (data) {
-                        $scope.myData = data;
-                    });
+                function (data) {
+                    $scope.myData = data;
+                });
         };
 
         $scope.deleteTile = function (id) {
             tileSvc.deleteTile(id)
                 .success(
-                    function (data) {
-                        utilSvc.createNotify('', data, 'success');
-                        $scope.loadData();
-                        $scope.first();
-                    })
+                function (data) {
+                    utilSvc.createNotify('', data, 'success');
+                    $scope.loadData();
+                    $scope.first();
+                })
                 .error(function (data) {
                     utilSvc.createNotify('', data, 'alert');
                 });
@@ -120,15 +120,70 @@ admin
         $scope.changeProperty = function (tile) {
             utilSvc.changeProperty('PortalBundle:Tile', tile.id, 'selected', 'bool', tile.selected)
                 .success(
-                    function (data) {
-                        utilSvc.createNotify('', data, 'success');
-                    })
+                function (data) {
+                    utilSvc.createNotify('', data, 'success');
+                })
                 .error(function (data) {
                     utilSvc.createNotify('', data, 'alert');
 
                 })
+        };
 
-        }
+        $scope.isSelectedItems = function () {
+            var selectedItems = $scope.selectedItems;
+            for (var key in selectedItems) {
+                if (selectedItems.hasOwnProperty(key) && selectedItems[key] == true) {
+                    return true
+                }
+            }
+            return false;
+        };
+
+        $scope.confirmSingleDeletion = function (id) {
+            var promise = modals.open(
+                "confirmSingle",
+                {
+                    message: "¿Estas seguro que deseas eliminar el elemento con id: " + id + "?"
+                }
+            );
+
+            promise.then(
+                function handleResolve(response) {
+
+                    $scope.deleteTile(id);
+                    console.log("Confirm resolved.");
+
+                },
+                function handleReject(error) {
+
+                    console.warn("Confirm rejected!");
+
+                }
+            );
+        };
+
+        $scope.confirmMultipleDeletion = function () {
+            var promise = modals.open(
+                "confirmMultiple",
+                {
+                    message: "¿Estas seguro que deseas eliminar los elementos seleccionados?"
+                }
+            );
+
+            promise.then(
+                function handleResolve(response) {
+
+                    $scope.deleteSelected();
+                    console.log("Confirm resolved.");
+
+                },
+                function handleReject(error) {
+
+                    console.warn("Confirm rejected!");
+
+                }
+            );
+        };
 
     }]);
 admin
@@ -147,47 +202,47 @@ admin
 
             utilSvc.getStyles()
                 .success(
-                    function (data) {
-                        $scope.styles = data;
-                    })
+                function (data) {
+                    $scope.styles = data;
+                })
                 .error(
-                    function (data) {
+                function (data) {
 
-                    }
-                );
+                }
+            );
 
             utilSvc.getFunctions()
                 .success(
-                    function (data) {
-                        $scope.functions = data;
-                    })
+                function (data) {
+                    $scope.functions = data;
+                })
                 .error(
-                    function (data) {
+                function (data) {
 
-                    }
-                );
+                }
+            );
 
             tilegroupSvc.getTileGroups()
                 .success(
-                    function (data) {
-                        $scope.tilegs = data;
-                    })
+                function (data) {
+                    $scope.tilegs = data;
+                })
                 .error(
-                    function (data) {
+                function (data) {
 
-                    }
-                );
+                }
+            );
 
             contentSvc.getContents()
                 .success(
-                    function (data) {
-                        $scope.contents = data;
-                    })
+                function (data) {
+                    $scope.contents = data;
+                })
                 .error(
-                    function (data) {
+                function (data) {
 
-                    }
-                );
+                }
+            );
 
             $scope.toStringContent = function (content) {
                 switch (content.type) {
@@ -207,22 +262,48 @@ admin
 
                 tileSvc.createTile($scope.data)
                     .success(
-                        function (data) {
-                            utilSvc.createNotify('', data, 'success');
-                            $state.go('main.tile');
-                        })
+                    function (data) {
+                        utilSvc.createNotify('', data, 'success');
+                        $state.go('main.tile_');
+                    })
                     .error(
-                        function (data) {
-                            utilSvc.createNotify('', data, 'alert');
-                        })
+                    function (data) {
+                        utilSvc.createNotify('', data, 'alert');
+                    })
             };
 
             utilSvc.initSelects();
         }]);
 admin
-    .controller('tileShowCtrl', ['$scope', 'tileSvc', function ($scope, tileSvc) {
+    .controller('tileShowCtrl', ['$scope', '$state', '$timeout', 'tileSvc', 'utilSvc', 'portalSvc',
+        function ($scope, $state, $timeout, tileSvc, utilSvc, portalSvc) {
 
-    }]);
+            $scope.url = portalSvc.getAssetUrl();
+
+            $scope.init = function (effect) {
+                if (effect != null) {
+                    $("#tile").tile({
+                        effect: effect
+                    })
+                } else {
+                    $("#tile").tile();
+                }
+
+            };
+
+            tileSvc.getTile($state.params.id)
+                .success(
+                function (data) {
+                    $scope.tile = data;
+                    $timeout(function () {
+                        $scope.init(data.dataEffect);
+                    }, 10);
+                })
+                .error(
+                function (data) {
+                    utilSvc.createNotify('', data, 'alert');
+                });
+        }]);
 admin
     .controller('tileUpdateCtrl', ['$scope', '$state', '$timeout', 'tileSvc', 'tilegroupSvc', 'contentSvc', 'portalSvc', 'utilSvc',
         function ($scope, $state, $timeout, tileSvc, tilegroupSvc, contentSvc, portalSvc, utilSvc) {
@@ -232,98 +313,98 @@ admin
             $scope.init = function () {
                 utilSvc.getStyles()
                     .success(
-                        function (data) {
-                            $scope.styles = data;
-                            $timeout(function () {
-                                $("#backgroung").select2({
-                                    placeholder: "Seleccione el color",
-                                    templateResult: utilSvc.formatStateColor,
-                                    templateSelection: utilSvc.formatStateColor
-                                });
-                                $("#size").select2({
-                                    placeholder: "Seleccione el tamaño"
-                                });
-                                $("#dataEffect").select2({
-                                    placeholder: "Seleccione el efecto"
-                                });
-                            }, 10);
-                        })
+                    function (data) {
+                        $scope.styles = data;
+                        $timeout(function () {
+                            $("#backgroung").select2({
+                                placeholder: "Seleccione el color",
+                                templateResult: utilSvc.formatStateColor,
+                                templateSelection: utilSvc.formatStateColor
+                            });
+                            $("#size").select2({
+                                placeholder: "Seleccione el tamaño"
+                            });
+                            $("#dataEffect").select2({
+                                placeholder: "Seleccione el efecto"
+                            });
+                        }, 10);
+                    })
                     .error(
-                        function (data) {
-                            utilSvc.createNotify('', data, 'alert');
-                        }
-                    );
+                    function (data) {
+                        utilSvc.createNotify('', data, 'alert');
+                    }
+                );
 
                 utilSvc.getFunctions()
                     .success(
-                        function (data) {
-                            $scope.functions = data;
-                            $timeout(function () {
-                                $("#funcionalidad").select2({
-                                    placeholder: "Seleccione la funcionalidad",
-                                    allowClear: true
-                                });
-                            }, 10);
-                        })
+                    function (data) {
+                        $scope.functions = data;
+                        $timeout(function () {
+                            $("#funcionalidad").select2({
+                                placeholder: "Seleccione la funcionalidad",
+                                allowClear: true
+                            });
+                        }, 10);
+                    })
                     .error(
-                        function (data) {
-                            utilSvc.createNotify('', data, 'alert');
-                        }
-                    );
+                    function (data) {
+                        utilSvc.createNotify('', data, 'alert');
+                    }
+                );
 
                 tilegroupSvc.getTileGroups()
                     .success(
-                        function (data) {
-                            $scope.tilegs = data;
-                            $timeout(function () {
-                                $("#tileGroup").select2({
-                                    placeholder: "Seleccione el tile group",
-                                    allowClear: true
-                                });
-                            }, 10);
-                        })
+                    function (data) {
+                        $scope.tilegs = data;
+                        $timeout(function () {
+                            $("#tileGroup").select2({
+                                placeholder: "Seleccione el tile group",
+                                allowClear: true
+                            });
+                        }, 10);
+                    })
                     .error(
-                        function (data) {
-                            utilSvc.createNotify('', data, 'alert');
-                        }
-                    );
+                    function (data) {
+                        utilSvc.createNotify('', data, 'alert');
+                    }
+                );
 
                 contentSvc.getContents()
                     .success(
-                        function (data) {
-                            $scope.contents = data;
-                            $timeout(function () {
-                                $("#contents").select2({
-                                    placeholder: "Seleccione los contenidos",
-                                    allowClear: true,
-                                    templateResult: utilSvc.formatStateContent,
-                                    templateSelection: utilSvc.formatStateContent
-                                });
-                            }, 10);
-                        })
+                    function (data) {
+                        $scope.contents = data;
+                        $timeout(function () {
+                            $("#contents").select2({
+                                placeholder: "Seleccione los contenidos",
+                                allowClear: true,
+                                templateResult: utilSvc.formatStateContent,
+                                templateSelection: utilSvc.formatStateContent
+                            });
+                        }, 10);
+                    })
                     .error(
-                        function (data) {
-                            utilSvc.createNotify('', data, 'alert');
-                        }
-                    );
+                    function (data) {
+                        utilSvc.createNotify('', data, 'alert');
+                    }
+                );
             };
 
             tileSvc.getTile($state.params.id)
                 .success(
-                    function (data) {
-                        $scope.tile = data;
-                        $scope.data = {
-                            'futbol_PortalBundle_tile[dataEffect]': data.dataEffect,
-                            'futbol_PortalBundle_tile[tileGroup]': (data.tileGroup != null) ? data.tileGroup.id + '' : '',
-                            'futbol_PortalBundle_tile[funcionalidad]': (data.funcionalidad != null) ? data.funcionalidad.id + '' : '',
-                            'futbol_PortalBundle_tile[backgroung]': data.backgroung,
-                            'futbol_PortalBundle_tile[size]': data.size,
-                            'futbol_PortalBundle_tile[selected]': data.selected,
-                            'futbol_PortalBundle_tile[contents]': $scope.transformData(data.contents)
-                        };
-                        $scope.init();
+                function (data) {
+                    $scope.tile = data;
+                    $scope.data = {
+                        'futbol_PortalBundle_tile[dataEffect]': data.dataEffect,
+                        'futbol_PortalBundle_tile[tileGroup]': (data.tileGroup != null) ? data.tileGroup.id + '' : '',
+                        'futbol_PortalBundle_tile[funcionalidad]': (data.funcionalidad != null) ? data.funcionalidad.id + '' : '',
+                        'futbol_PortalBundle_tile[backgroung]': data.backgroung,
+                        'futbol_PortalBundle_tile[size]': data.size,
+                        'futbol_PortalBundle_tile[selected]': data.selected,
+                        'futbol_PortalBundle_tile[contents]': $scope.transformData(data.contents)
+                    };
+                    $scope.init();
 
-                    })
+                })
                 .error(function () {
                     utilSvc.createNotify('', data, 'alert');
                 });
@@ -358,14 +439,14 @@ admin
 
                 tileSvc.updateTile($scope.tile.id, $scope.data)
                     .success(
-                        function (data) {
-                            utilSvc.createNotify('', data, 'success');
-                            $state.go('main.tile');
-                        })
+                    function (data) {
+                        utilSvc.createNotify('', data, 'success');
+                        $state.go('main.tile_');
+                    })
                     .error(
-                        function (data) {
-                            console.log('here');
-                            utilSvc.createNotify('', data, 'alert');
-                        })
+                    function (data) {
+                        console.log('here');
+                        utilSvc.createNotify('', data, 'alert');
+                    })
             };
         }]);

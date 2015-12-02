@@ -16,20 +16,18 @@ class IconType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('icon','choice',array(
-                'choices' => OptionsArray::icons()
-            ))
-            ->add('tile')
-        ;
+            ->add('icon');
+//            ->add('tile');
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'UCI\Boson\PortalBundle\Entity\Icon'
+            'data_class' => 'UCI\Boson\PortalBundle\Entity\Icon',
+            'csrf_protection' => false
         ));
     }
 

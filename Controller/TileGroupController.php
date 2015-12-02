@@ -32,7 +32,7 @@ class TileGroupController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine.orm.entity_manager');
 
         $entities = $em->getRepository('PortalBundle:TileGroup')->getAll();
 
@@ -44,9 +44,8 @@ class TileGroupController extends Controller
     /**
      * Creates a new TileGroup entity.
      *
-     * @Route("/", name="tilegroup_create")
+     * @Route("/", name="tilegroup_create", options={"expose"=true})
      * @Method("POST")
-     * @Template("PortalBundle:TileGroup:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -55,17 +54,14 @@ class TileGroupController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->get('doctrine.orm.entity_manager');
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('tilegroup_show', array('id' => $entity->getId())));
+            return new Response('The TileGroup was created successfully.');
         }
 
-        return array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-        );
+        return new Response($form->getErrors(), Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -82,15 +78,13 @@ class TileGroupController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
-
         return $form;
     }
 
     /**
      * Displays a form to create a new TileGroup entity.
      *
-     * @Route("/new", name="tilegroup_new")
+     * @Route("/new", name="tilegroup_new", options={"expose"=true})
      * @Method("GET")
      * @Template()
      */
@@ -108,26 +102,21 @@ class TileGroupController extends Controller
     /**
      * Finds and displays a TileGroup entity.
      *
-     * @Route("/{id}", name="tilegroup_show")
+     * @Route("/{id}", name="tilegroup_show", options={"expose"=true})
      * @Method("GET")
-     * @Template()
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine.orm.entity_manager');
 
-        $entity = $em->getRepository('PortalBundle:TileGroup')->find($id);
+        $entity = $em->getRepository('PortalBundle:TileGroup')->get($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find TileGroup entity.');
+            return new Response('Unable to find Tile entity.', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        $deleteForm = $this->createDeleteForm($id);
+        return new Response($this->serialize($entity));
 
-        return array(
-            'entity' => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
     }
 
     /**
@@ -139,9 +128,9 @@ class TileGroupController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine.orm.entity_manager');
 
-        $entity = $em->getRepository('PortalBundle:TileGroup')->find($id);
+        $entity = $em->getRepository('PortalBundle:TileGroup')->get($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find TileGroup entity.');
@@ -179,13 +168,12 @@ class TileGroupController extends Controller
     /**
      * Edits an existing TileGroup entity.
      *
-     * @Route("/{id}", name="tilegroup_update")
+     * @Route("/{id}", name="tilegroup_update", options={"expose"=true})
      * @Method("PUT")
-     * @Template("PortalBundle:TileGroup:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine.orm.entity_manager');
 
         $entity = $em->getRepository('PortalBundle:TileGroup')->find($id);
 
@@ -193,62 +181,37 @@ class TileGroupController extends Controller
             throw $this->createNotFoundException('Unable to find TileGroup entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('tilegroup_edit', array('id' => $id)));
+            return new Response("The TileGroup with id '$id' was updated successfully.");
         }
 
-        return array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return new Response('You have an error', Response::HTTP_INTERNAL_SERVER_ERROR);
+
     }
 
     /**
      * Deletes a TileGroup entity.
      *
-     * @Route("/{id}", name="tilegroup_delete")
+     * @Route("/{id}", name="tilegroup_delete", options={"expose"=true})
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+        $em = $this->get('doctrine.orm.entity_manager');
+        $entity = $em->getRepository('PortalBundle:TileGroup')->find($id);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('PortalBundle:TileGroup')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find TileGroup entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            return new Response('Unable to find TileGroup entity.', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return $this->redirect($this->generateUrl('tilegroup'));
-    }
+        $em->remove($entity);
+        $em->flush();
 
-    /**
-     * Creates a form to delete a TileGroup entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('tilegroup_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm();
+        return new Response("The TileGroup with id '$id' was deleted successfully.");
     }
 }

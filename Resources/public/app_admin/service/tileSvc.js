@@ -23,7 +23,7 @@ admin.provider('tileSvc', [function () {
 
             var updateTile = function (id, data) {
                 data._method = 'PUT';
-                return $http.post(Routing.generate('tile_update', {'id': id}, true) + '?XDEBUG_SESSION_START', data);
+                return $http.post(Routing.generate('tile_update', {'id': id}, true), data);
             };
 
             var deleteTile = function (id) {

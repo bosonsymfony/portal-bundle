@@ -22,7 +22,7 @@ admin.
 
             })
             /* Tiles routes */
-            .state('main.tile', {
+            .state('main.tile_', {
                 url: '/tile',
                 templateUrl: path + "/app_admin/view/tile/tile.html",
                 controller: "tileCtrl"
@@ -45,13 +45,47 @@ admin.
             /* Content routes */
             .state('main.content', {
                 url: '/content',
-                templateUrl: path + "/app_admin/view/content/content.html"
+                templateUrl: path + "/app_admin/view/content/content.html",
+                controller: 'contentCtrl'
+            })
+            .state('main.content_new', {
+                url: '/content/new',
+                templateUrl: path + "/app_admin/view/content/content.new.html",
+                controller: 'contentNewCtrl'
+
+            })
+            .state('main.content_show', {
+                url: '/content/show/:id',
+                templateUrl: path + "/app_admin/view/content/content.show.html",
+                controller: 'contentShowCtrl'
+            })
+            .state('main.content_update', {
+                url: '/content/update/:id',
+                templateUrl: path + "/app_admin/view/content/content.update.html",
+                controller: 'contentUpdateCtrl'
             })
             /* Tilegroup routes */
             .state('main.tilegroup', {
                 url: '/tilegroup',
-                templateUrl: path + "/app_admin/view/tilegroup/tilegroup.html"
-            });
+                templateUrl: path + "/app_admin/view/tilegroup/tilegroup.html",
+                controller: "tilegroupCtrl"
+            })
+            .state('main.tilegroup_new', {
+                url: '/tilegroup/new',
+                templateUrl: path + "/app_admin/view/tilegroup/tilegroup.new.html",
+                controller: "tilegroupNewCtrl"
+            })
+            .state('main.tilegroup_show', {
+                url: '/tilegroup/show/:id',
+                templateUrl: path + "/app_admin/view/tilegroup/tilegroup.show.html",
+                controller: "tilegroupShowCtrl"
+            })
+            .state('main.tilegroup_update', {
+                url: '/tilegroup/update/:id',
+                templateUrl: path + "/app_admin/view/tilegroup/tilegroup.update.html",
+                controller: "tilegroupUpdateCtrl"
+            })
+        ;
 
         var param = function (obj) {
             var query = '', name, value, fullSubName, subName, subValue, innerObj, i;

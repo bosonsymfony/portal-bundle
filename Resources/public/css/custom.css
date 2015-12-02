@@ -534,3 +534,83 @@ td.actions a {
     height: 100% !important;
 }
 
+div.m-modals {
+    background-color: rgba(0, 0, 0, 0.8);
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+div.m-modals.ng-hide {
+    background-color: rgba(0, 0, 0, 0);
+}
+
+div.m-modals.ng-hide-add.ng-hide-add-active,
+div.m-modals.ng-hide-remove.ng-hide-remove-active {
+    transition: 250ms ease all;
+}
+
+div.m-modals.ng-hide-remove {
+    animation: none !important;
+}
+
+div.m-modals > .dialog {
+    left: 50%;
+    margin-left: -210px;
+    top: 50%;
+    margin-top: -100px;
+    width: 420px;
+}
+
+div.m-modals.ng-hide > .dialog.ng-enter {
+    top: -50%;
+    transition: 250ms ease top;
+}
+
+div.m-modals.ng-hide > .dialog.ng-enter.ng-enter-active {
+    top: 50%;
+}
+
+a.jump {
+    color: #999999;
+}
+
+a.jump:hover {
+    background-color: gold;
+    color: #000000;
+}
+
+.switch-original .check {
+    z-index: auto;
+}
+
+.frames .frame {
+    display: none !important;
+}
+
+.frames .frame.active {
+    display: block !important;
+}
+
+.tabs li {
+    cursor: pointer;
+}
+
+/* Preloader Ring */
+.preloader-ring > .wrap {
+    width: 60px;
+    height: 60px;
+}
+
+.preloader-ring > .wrap > .circle {
+    width: 60px;
+    height: 60px;
+}
+
+.preloader-ring > .wrap > .circle::after {
+    width: 7px;
+    height: 7px;
+    border-radius: 7px;
+}

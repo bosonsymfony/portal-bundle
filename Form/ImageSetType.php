@@ -15,7 +15,7 @@ class ImageSetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('paths')
+            ->add('paths');
 //            ->add('files','file',array(
 //                'label' => 'Imagenes',
 //                'attr' => array(
@@ -23,16 +23,17 @@ class ImageSetType extends AbstractType
 //                    'multiple' => true,
 //                )
 //            ))
-            ->add('tile');
+//            ->add('tile');
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'UCI\Boson\PortalBundle\Entity\ImageSet'
+            'data_class' => 'UCI\Boson\PortalBundle\Entity\ImageSet',
+            'csrf_protection' => false
         ));
     }
 

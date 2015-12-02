@@ -71,6 +71,8 @@
     <script src="{{ asset('bundles/portal/lib/angular/angular.js') }}"></script>
     <script src="{{ asset('bundles/portal/lib/angular/angular-animate.js') }}"></script>
     <script src="{{ asset('bundles/portal/lib/angular-ui-router/angular-ui-router.js') }}"></script>
+    <script src="{{ asset('bundles/portal/lib/angular-file-upload/ng-file-upload-shim.min.js') }}"></script>
+    <script src="{{ asset('bundles/portal/lib/angular-file-upload/ng-file-upload.min.js') }}ng-file-upload.min.js"></script>
     <script src="{{ asset('bundles/portal/lib/select2/js/select2.min.js') }}"></script>
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
@@ -85,12 +87,16 @@
     <script src="{{ asset('bundles/portal/app_admin/service/tilegroupSvc.js') }}"></script>
     <script src="{{ asset('bundles/portal/app_admin/service/contentSvc.js') }}"></script>
     <script src="{{ asset('bundles/portal/app_admin/service/contentSvc.js') }}"></script>
+    <script src="{{ asset('bundles/portal/app_admin/service/modalSvc.js') }}"></script>
     <!-- Directives -->
-    {#<script src="{{ asset('bundles/portal/app_admin/directive/select2.js') }}"></script>#}
+    <script src="{{ asset('bundles/portal/app_admin/directive/bnModals.js') }}"></script>
     <!-- Controllers -->
     <script src="{{ asset('bundles/portal/app_admin/controller/tileCtrl.js') }}"></script>
     <script src="{{ asset('bundles/portal/app_admin/controller/contentCtrl.js') }}"></script>
     <script src="{{ asset('bundles/portal/app_admin/controller/tilegroupCtrl.js') }}"></script>
+    <script src="{{ asset('bundles/portal/app_admin/controller/modal/AlertModalCtrl.js') }}"></script>
+    <script src="{{ asset('bundles/portal/app_admin/controller/modal/ConfirmModalCtrl.js') }}"></script>
+    <script src="{{ asset('bundles/portal/app_admin/controller/modal/PromptModalCtrl.js') }}"></script>
     <script src="{{ asset('bundles/portal/app_admin/routes.js') }}"></script>
     <!-- End App Block -->
 

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Content
  *
  * @ORM\Table("por_content")
- * @ORM\Entity(repositoryClass="UCI\Boson\PortalBundle\Entity\ContentRepository")
+ * @ORM\Entity(repositoryClass="UCI\Boson\PortalBundle\Repository\ContentRepository")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({"icon"="Icon","image"="Image","image-set"="ImageSet","content"="Content"})

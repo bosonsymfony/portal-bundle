@@ -1,0 +1,69 @@
+{% set lineas =
+{
+    'xavia' : '#4D9B3E',
+    'xabal' : '#A50F05',
+    'xauce' : '#CD870A',
+    'xedro' : '#952381',
+    'xilema' : '#0162B1'
+}
+%}
+
+@font-face {
+    font-family: 'electrofield';
+    src: url('{{ asset('bundles/iux/bootstrap/css/fonts/electro.ttf') }}') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'novason';
+    src: url('{{ asset('bundles/iux/bootstrap/css/fonts/novason.ttf') }}') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'aller';
+    src: url('{{ asset('bundles/iux/bootstrap/css/fonts/aller.ttf') }}') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.fondo {
+    background-image: url("{{ asset(background)|raw }}") !important;
+}
+
+.background {
+    background-image: url("{{ asset(background)|raw }}") !important;
+}
+
+#input-search:hover + .bg-hover-linea {
+    background-color: {{ lineas[linea]|raw }} !important;
+    color: white !important;
+}
+
+#input-search:focus + .bg-hover-linea {
+    background-color: {{ lineas[linea]|raw }} !important;
+    color: white !important;
+}
+
+.fg-linea {
+    color: {{ lineas[linea]|raw }};
+}
+
+.fg-linea-important {
+    color: {{ lineas[linea]|raw }} !important;
+}
+
+.bg-linea {
+    background-color: {{ lineas[linea]|raw }};
+}
+
+.fg-hover-linea:hover {
+    color: {{ lineas[linea]|raw }} !important;
+}
+
+.bg-hover-linea:hover {
+    background-color: {{ lineas[linea]|raw }} !important;
+}
+

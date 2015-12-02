@@ -84,7 +84,7 @@ class Image extends Content
         // check if we have an old image
         if (isset($this->temp)) {
             // delete the old image
-            unlink($this->getUploadRootDir() . '/' . $this->temp);
+//            unlink($this->getUploadRootDir() . '/' . $this->temp);
             // clear the temp image path
             $this->temp = null;
         }
@@ -97,7 +97,7 @@ class Image extends Content
     public function removeUpload()
     {
         if ($file = $this->getAbsolutePath()) {
-            unlink($file);
+//            unlink($file);
         }
     }
 

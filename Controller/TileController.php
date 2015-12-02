@@ -41,6 +41,7 @@ class TileController extends Controller
             'effects' => $stylesService->effects()
         );
         $response = new Response($this->serialize($styles));
+        $response->headers->set('Access-Control-Allow-Origin', '*');
         return $response;
     }
 
@@ -52,7 +53,7 @@ class TileController extends Controller
      */
     public function getFuncionalidadesAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine.orm.entity_manager');
 
         $entities = $em->getRepository('PortalBundle:Tile')->getFunctions();
 
@@ -69,7 +70,7 @@ class TileController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine.orm.entity_manager');
 
         $entities = $em->getRepository('PortalBundle:Tile')->getAll();
 
@@ -91,7 +92,7 @@ class TileController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->get('doctrine.orm.entity_manager');
             $oldTile = $em->getRepository('PortalBundle:Tile')->findOneBy(
                 array(
                     'funcionalidad' => $entity->getFuncionalidad()
@@ -153,7 +154,7 @@ class TileController extends Controller
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine.orm.entity_manager');
 
         $entity = $em->getRepository('PortalBundle:Tile')->get($id);
 
@@ -173,7 +174,7 @@ class TileController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine.orm.entity_manager');
 
         $entity = $em->getRepository('PortalBundle:Tile')->find($id);
 
@@ -233,7 +234,7 @@ class TileController extends Controller
                     'funcionalidad' => $entity->getFuncionalidad()
                 ));
             if ($oldTile != null) {
-                if ($entity->getFuncionalidad() && $entity->getFuncionalidad()->getId() != $oldTile->getFuncionalidad()->getId()){
+                if ($entity->getFuncionalidad() && $entity->getFuncionalidad()->getId() != $oldTile->getFuncionalidad()->getId()) {
                     $oldTile->setFuncionalidad(null);
                     $em->persist($oldTile);
                     $em->flush();
@@ -255,7 +256,7 @@ class TileController extends Controller
      */
     public function deleteAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine.orm.entity_manager');
         $entity = $em->getRepository('PortalBundle:Tile')->find($id);
 
         if (!$entity) {
@@ -266,21 +267,5 @@ class TileController extends Controller
         $em->flush();
 
         return new Response("The Tile with id '$id' was deleted successfully.");
-    }
-
-    /**
-     * Creates a form to delete a Tile entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('tile_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm();
     }
 }

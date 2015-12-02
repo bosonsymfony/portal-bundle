@@ -1,0 +1,141 @@
+<h1 class="text-light">
+    Tile
+    <span class="mif-apps place-right"></span>
+</h1>
+<hr class="thin bg-grayLighter">
+<a class="button primary" ui-sref="main.tile_new">
+    <span class="mif-plus"></span> Nuevo...
+</a>
+<button class="button" ng-class="{alert:isSelectedItems()}"
+        ng-disabled="!isSelectedItems()"
+        ng-click="confirmMultipleDeletion()">
+    <span class="mif-cross"></span> Eliminar seleccionados
+</button>
+<hr class="thin bg-grayLighter">
+<!--<div ui-grid="{ data: myData }" class="myGrid"></div>-->
+<div>
+    <div class="input-control select">
+        <select name="limit" ng-model="limit" ng-change="currentPage = 0">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+        </select>
+    </div>
+    <div class="input-control text" style="float: right; width: 200px">
+        <input type="text" name="search" placeholder="Buscar" ng-model="search" ng-change="currentPage = 0">
+    </div>
+</div>
+
+<table class="table border bordered sortable-markers-on-left">
+    <thead>
+    <tr>
+        <th></th>
+        <th class="sortable-column" ng-repeat="(key, column) in dataTable.columns"
+            ng-class="{'sort-asc':(key == predicate && reverse == true), 'sort-desc':(key == predicate && reverse == false)}"
+            ng-click="order(key)">
+            {{ column.name }}
+        </th>
+        <th>
+            Acciones
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="tile in myData|filter:search|orderBy:predicate:reverse as result"
+        ng-if="$index >= currentPage*limit && $index < currentPage*limit + toInt(limit)">
+        <td>
+            <label class="input-control checkbox small-check">
+                <input type="checkbox" ng-model="selectedItems[tile.id]" ng-change="print()">
+                <span class="check"></span>
+            </label>
+        </td>
+        <td>{{ tile.id }}</td>
+        <td>{{ tile.funcionalidad.nombre }}</td>
+        <td>
+            <label class="switch-original">
+                <input ng-model="tile.selected" type="checkbox"
+                       ng-change="changeProperty(tile)">
+                <span class="check"></span>
+            </label>
+            {{ tile.selected }}
+        </td>
+        <td>
+            <span class="border-solid bg-{{ tile.backgroung }}">&nbsp&nbsp&nbsp&nbsp</span>
+            {{ tile.backgroung }}
+        </td>
+        <td>
+            <a ui-sref="main.tilegroup_show({id:tile.tileGroup.id})">{{ tile.tileGroup.title }}</a>
+        </td>
+        <td>{{ tile.size }}</td>
+        <td class="actions">
+            <a ui-sref="main.tile_show({id:tile.id})" class="button mini-button success">
+                <span class="mif-eye"></span>
+            </a>
+            <a ui-sref="main.tile_update({id:tile.id})" class="button mini-button primary">
+                <span class="mif-loop2"></span>
+            </a>
+            <button ng-click="confirmSingleDeletion(tile.id)" class="button mini-button danger">
+                <span class="mif-cross"></span>
+            </button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="pagination">
+    <span class="item" ng-class="{disabled:isFirst()}" ng-click="first()">
+        <span class="mif-first"></span>
+    </span>
+    <span class="item" ng-class="{disabled:isFirst()}" ng-click="previous()">
+        <span class="mif-previous"></span>
+    </span>
+    <span class="item current">
+        {{ currentPage + 1 }}
+    </span>
+    <span class="item" ng-class="{disabled:isLast(result.length)}" ng-click="next(result.length)">
+        <span class="mif-next"></span>
+    </span>
+    <span class="item" ng-class="{disabled:isLast(result.length)}" ng-click="last(result.length)">
+        <span class="mif-last"></span>
+    </span>
+</div>
+
+Current page: {{ currentPage + 1 }}<br>
+Range: {{ currentPage*limit + 1 }} - {{ currentPage*limit + toInt(limit) }}<br>
+Results count: {{ result.length }}
+
+<div bn-modals ng-show="subview" class="m-modals" ng-switch="subview">
+
+    <!-- BEGIN: Confirm Modal Multiple. -->
+    <div ng-switch-when="confirmMultiple" ng-controller="ConfirmModalCtrl" class="dialog padding20">
+
+        <p>
+            {{ message }}
+        </p>
+        <span class="dialog-close-button" ng-click="deny()"></span>
+
+        <div class="align-right">
+            <a class="button success" ng-click="confirm()">Aceptar</a>
+            <a class="button" ng-click="deny()">Cancelar</a>
+        </div>
+
+    </div>
+    <!-- END: Confirm Modal Single. -->
+
+    <!-- BEGIN: Confirm Modal Single. -->
+    <div ng-switch-when="confirmSingle" ng-controller="ConfirmModalCtrl" class="dialog padding20">
+
+        <p>
+            {{ message }}
+        </p>
+        <span class="dialog-close-button" ng-click="deny()"></span>
+
+        <div class="align-right">
+            <a class="button success" ng-click="confirm()">Aceptar</a>
+            <a class="button" ng-click="deny()">Cancelar</a>
+        </div>
+
+    </div>
+    <!-- END: Confirm Modal Single. -->
+</div>

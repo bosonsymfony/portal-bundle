@@ -8,9 +8,6 @@
 
 namespace UCI\Boson\PortalBundle\Util;
 
-
-use Symfony\Component\Yaml\Parser;
-
 class Styles
 {
     /**

@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Tile
  *
  * @ORM\Table("por_tile")
- * @ORM\Entity(repositoryClass="UCI\Boson\PortalBundle\Entity\TileRepository")
+ * @ORM\Entity(repositoryClass="UCI\Boson\PortalBundle\Repository\TileRepository")
  */
 class Tile
 {

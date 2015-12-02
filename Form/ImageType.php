@@ -15,28 +15,28 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('tipo','choice',array(
+            ->add('tipo', 'choice', array(
                 'choices' => array(
                     'icon' => 'icon',
                     'image' => 'image',
                 )
             ))
-            ->add('file',null,array(
+            ->add('file', null, array(
                 'attr' => array(
                     'accept' => 'image/*'
                 )
-            ))
-            ->add('tile')
-        ;
+            ));
+//            ->add('tile');
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'UCI\Boson\PortalBundle\Entity\Image'
+            'data_class' => 'UCI\Boson\PortalBundle\Entity\Image',
+            'csrf_protection' => false
         ));
     }
 

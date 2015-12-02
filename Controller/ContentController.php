@@ -9,7 +9,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Response;
 use UCI\Boson\PortalBundle\Entity\Content;
+use UCI\Boson\PortalBundle\Entity\Icon;
+use UCI\Boson\PortalBundle\Entity\Image;
+use UCI\Boson\PortalBundle\Entity\ImageSet;
 use UCI\Boson\PortalBundle\Form\ContentType;
+use UCI\Boson\PortalBundle\Form\IconType;
+use UCI\Boson\PortalBundle\Form\ImageSetType;
+use UCI\Boson\PortalBundle\Form\ImageType;
 
 /**
  * Content controller.
@@ -32,7 +38,7 @@ class ContentController extends Controller
      */
     public function indexAction()
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine.orm.entity_manager');
 
         $entities = $em->getRepository('PortalBundle:Content')->getAll();
 
@@ -44,9 +50,8 @@ class ContentController extends Controller
     /**
      * Creates a new Content entity.
      *
-     * @Route("/", name="content_create")
+     * @Route("/", name="content_create", options={"expose"=true})
      * @Method("POST")
-     * @Template("PortalBundle:Content:new.html.twig")
      */
     public function createAction(Request $request)
     {
@@ -55,17 +60,14 @@ class ContentController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $em = $this->get('doctrine.orm.entity_manager');
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('content_show', array('id' => $entity->getId())));
+            return new Response('The Content was created successfully.');
         }
 
-        return array(
-            'entity' => $entity,
-            'form' => $form->createView(),
-        );
+        return new Response($form->getErrors(), Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -97,7 +99,13 @@ class ContentController extends Controller
     public function newAction()
     {
         $entity = new Content();
-        $form = $this->createCreateForm($entity);
+
+        $form = $this->createForm(new ImageSetType(), new ImageSet(), array(
+            'action' => $this->generateUrl('content_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return array(
             'entity' => $entity,
@@ -108,13 +116,12 @@ class ContentController extends Controller
     /**
      * Finds and displays a Content entity.
      *
-     * @Route("/{id}", name="content_show")
+     * @Route("/{id}", name="content_show", options={"expose"=true})
      * @Method("GET")
-     * @Template()
      */
     public function showAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine.orm.entity_manager');
 
         $entity = $em->getRepository('PortalBundle:Content')->find($id);
 
@@ -122,12 +129,7 @@ class ContentController extends Controller
             throw $this->createNotFoundException('Unable to find Content entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity' => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
+        return new Response($this->serialize($entity));
     }
 
     /**
@@ -139,7 +141,7 @@ class ContentController extends Controller
      */
     public function editAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine.orm.entity_manager');
 
         $entity = $em->getRepository('PortalBundle:Content')->find($id);
 
@@ -179,13 +181,13 @@ class ContentController extends Controller
     /**
      * Edits an existing Content entity.
      *
-     * @Route("/{id}", name="content_update")
+     * @Route("/{id}", name="content_update", options={"expose"=true})
      * @Method("PUT")
      * @Template("PortalBundle:Content:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->get('doctrine.orm.entity_manager');
 
         $entity = $em->getRepository('PortalBundle:Content')->find($id);
 
@@ -193,62 +195,43 @@ class ContentController extends Controller
             throw $this->createNotFoundException('Unable to find Content entity.');
         }
 
-        $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('content_edit', array('id' => $id)));
+            return new Response("The Content with id '$id' was updated successfully.");
         }
 
-        return array(
-            'entity' => $entity,
-            'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
-        );
+        return new Response('You have an error', Response::HTTP_INTERNAL_SERVER_ERROR);
     }
 
     /**
      * Deletes a Content entity.
      *
-     * @Route("/{id}", name="content_delete")
+     * @Route("/{id}", name="content_delete", options={"expose"=true})
      * @Method("DELETE")
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction($id)
     {
-        $form = $this->createDeleteForm($id);
-        $form->handleRequest($request);
+        $em = $this->get('doctrine.orm.entity_manager');
+        $entity = $em->getRepository('PortalBundle:Content')->find($id);
 
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('PortalBundle:Content')->find($id);
-
-            if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Content entity.');
-            }
-
-            $em->remove($entity);
-            $em->flush();
+        if (!$entity) {
+            return new Response('Unable to find Content entity.', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        return $this->redirect($this->generateUrl('content'));
-    }
+        $tiles = $em->getRepository('PortalBundle:Content')->getTilesByContent($id);
+        foreach ($tiles as $index => $tile) {
+            $tile->removeContent($entity);
+            $em->persist($tile);
+        }
+        $em->flush();
 
-    /**
-     * Creates a form to delete a Content entity by id.
-     *
-     * @param mixed $id The entity id
-     *
-     * @return \Symfony\Component\Form\Form The form
-     */
-    private function createDeleteForm($id)
-    {
-        return $this->createFormBuilder()
-            ->setAction($this->generateUrl('content_delete', array('id' => $id)))
-            ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Delete'))
-            ->getForm();
+        $em->remove($entity);
+        $em->flush();
+
+        return new Response("The Content with id '$id' was deleted successfully.");
     }
 }

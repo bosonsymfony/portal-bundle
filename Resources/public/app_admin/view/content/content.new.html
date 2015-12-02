@@ -1,0 +1,133 @@
+<h1 class="text-light">
+    Content new
+    <span class="mif-apps place-right"></span>
+</h1>
+<hr class="thin bg-grayLighter">
+<div class="tabcontrol2">
+    <ul class="tabs">
+        <li ng-class="{active:tabcontrol=='icon'}">
+            <a ng-click="tabcontrol = 'icon'">Icon</a>
+        </li>
+        <li ng-class="{active:tabcontrol=='image'}">
+            <a ng-click="tabcontrol = 'image'">Image</a>
+        </li>
+        <li ng-class="{active:tabcontrol=='image-set'}">
+            <a ng-click="tabcontrol = 'image-set'">ImageSet</a>
+        </li>
+    </ul>
+
+    <div class="frames">
+        <div class="frame" ng-class="{active:tabcontrol=='icon'}">
+            <form name="futbol_PortalBundle_icon" method="post" ng-submit="submitIcon()">
+                <div class="grid">
+                    <div class="row cells2">
+                        <div class="cell auto-size">
+                            <label>Icon</label>
+
+                            <div class="input-control text full-size">
+                                <input type="text" name="futbol_PortalBundle_icon[icon]" required="required"
+                                       maxlength="255"/>
+                            </div>
+
+                        </div>
+                        <div class="cell auto-size"></div>
+
+                    </div>
+                </div>
+                <div>
+                    <button type="submit" class="button success">
+                        Create
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="frame" ng-class="{active:tabcontrol=='image'}">
+            <form name="futbol_PortalBundle_image" method="post" enctype="multipart/form-data">
+                <div class="grid">
+                    <div class="row cells2">
+                        <div class="cell auto-size">
+                            <label>Tipo</label>
+
+                            <div class="input-control select full-size">
+                                <select name="futbol_PortalBundle_image[tipo]">
+                                    <option value="icon">icon</option>
+                                    <option value="image">image</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="cell auto-size">
+                            <label>Image</label>
+
+                            <div class="input-control file full-size image_file">
+                                <input type="file" name="futbol_PortalBundle_image[file]" accept="image/*"/>
+                                <button class="button">
+                                    <span class="mif-folder"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <button class="button success" type="submit">
+                        Create
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="frame" ng-class="{active:tabcontrol=='image-set'}">
+            <form name="futbol_PortalBundle_imageset" method="post" enctype="multipart/form-data">
+                <div class="grid">
+                    <div class="row cells2">
+                        <div class="cell auto-size">
+                            <label class="required">Images</label>
+
+                            <div class="input-control file full-size image_file">
+                                <input type="file" name="futbol_PortalBundle_imageset[paths][0]" multiple/>
+                                <button class="button">
+                                    <span class="mif-folder"></span>
+                                </button>
+                            </div>
+                            <div class="input-control file full-size image_file">
+                                <input type="file" name="futbol_PortalBundle_imageset[paths][1]" multiple/>
+                                <button class="button">
+                                    <span class="mif-folder"></span>
+                                </button>
+                            </div>
+                            <div class="input-control file full-size image_file">
+                                <input type="file" name="futbol_PortalBundle_imageset[paths][2]" multiple/>
+                                <button class="button">
+                                    <span class="mif-folder"></span>
+                                </button>
+                            </div>
+                            <div class="input-control file full-size image_file">
+                                <input type="file" name="futbol_PortalBundle_imageset[paths][3]" multiple/>
+
+                                <button class="button">
+                                    <span class="mif-folder"></span>
+                                </button>
+                            </div>
+                            <div class="input-control file full-size image_file">
+                                <input type="file" name="futbol_PortalBundle_imageset[paths][4]" multiple/>
+
+                                <button class="button">
+                                    <span class="mif-folder"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="button success" type="submit">
+                        Create
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('.image_file').input();
+</script>

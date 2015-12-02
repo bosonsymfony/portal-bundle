@@ -17,17 +17,17 @@ class TileGroupType extends AbstractType
         $builder
             ->add('active')
             ->add('size')
-            ->add('title')
-        ;
+            ->add('title');
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'UCI\Boson\PortalBundle\Entity\TileGroup'
+            'data_class' => 'UCI\Boson\PortalBundle\Entity\TileGroup',
+            'csrf_protection' => false
         ));
     }
 
