@@ -4,4 +4,4 @@
  * and open the template in the editor.
  */
 
-var admin = angular.module('admin', ['ngAnimate', 'ui.router']);
+var admin = angular.module('admin', ['ngAnimate', 'ui.router', 'ngFileUpload']);

@@ -123,12 +123,10 @@ admin
                 function handleResolve(response) {
 
                     $scope.deleteTileGroup(id);
-                    console.log("Confirm resolved.");
 
                 },
                 function handleReject(error) {
 
-                    console.warn("Confirm rejected!");
 
                 }
             );
@@ -146,12 +144,9 @@ admin
                 function handleResolve(response) {
 
                     $scope.deleteSelected();
-                    console.log("Confirm resolved.");
 
                 },
                 function handleReject(error) {
-
-                    console.warn("Confirm rejected!");
 
                 }
             );
@@ -223,7 +218,6 @@ admin
                         })
                     .error(
                         function (data) {
-                            console.log('here');
                             utilSvc.createNotify('', data, 'alert');
                         })
             };

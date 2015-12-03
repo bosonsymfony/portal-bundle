@@ -5,6 +5,7 @@ namespace UCI\Boson\PortalBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use UCI\Boson\PortalBundle\Util\Globals;
 
 /**
  * Image
@@ -34,6 +35,7 @@ class Image extends Content
 
     /**
      * @Assert\File(maxSize="6000000")
+     * @Assert\NotNull()
      */
     private $file;
 
@@ -84,7 +86,10 @@ class Image extends Content
         // check if we have an old image
         if (isset($this->temp)) {
             // delete the old image
-//            unlink($this->getUploadRootDir() . '/' . $this->temp);
+            $path = $this->getUploadRootDir() . '/' . $this->temp;
+            if (file_exists($path)) {
+                unlink($path);
+            }
             // clear the temp image path
             $this->temp = null;
         }
@@ -96,8 +101,8 @@ class Image extends Content
      */
     public function removeUpload()
     {
-        if ($file = $this->getAbsolutePath()) {
-//            unlink($file);
+        if (file_exists($this->getAbsolutePath())) {
+            unlink($this->getAbsolutePath());
         }
     }
 
@@ -143,25 +148,9 @@ class Image extends Content
             : $this->getUploadRootDir() . '/' . $this->path;
     }
 
-    public function getWebPath()
-    {
-        return null === $this->path
-            ? null
-            : $this->getUploadDir() . '/' . $this->path;
-    }
-
     protected function getUploadRootDir()
     {
-        // the absolute directory path where uploaded
-        // documents should be saved
-        return __DIR__ . '/../../../../../web/' . $this->getUploadDir();
-    }
-
-    protected function getUploadDir()
-    {
-        // get rid of the __DIR__ so it doesn't screw up
-        // when displaying uploaded doc/image in the view.
-        return 'images';
+        return Globals::getUploadDir();
     }
 
     function __toString()
@@ -173,7 +162,6 @@ class Image extends Content
     {
         return 'image';
     }
-
 
 
     /**
@@ -192,7 +180,7 @@ class Image extends Content
     /**
      * Get path
      *
-     * @return string 
+     * @return string
      */
     public function getPath()
     {

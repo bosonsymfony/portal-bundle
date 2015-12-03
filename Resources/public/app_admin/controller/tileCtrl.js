@@ -151,7 +151,6 @@ admin
                 function handleResolve(response) {
 
                     $scope.deleteTile(id);
-                    console.log("Confirm resolved.");
 
                 },
                 function handleReject(error) {
@@ -174,7 +173,6 @@ admin
                 function handleResolve(response) {
 
                     $scope.deleteSelected();
-                    console.log("Confirm resolved.");
 
                 },
                 function handleReject(error) {
@@ -414,7 +412,6 @@ admin
                 contents.forEach(function (entry) {
                     result.push(entry.id + "");
                 });
-                console.log(result);
                 return result;
             };
 
@@ -435,8 +432,6 @@ admin
                 var selected = $scope.data['futbol_PortalBundle_tile[selected]'];
                 $scope.data['futbol_PortalBundle_tile[selected]'] = (selected == true) ? true : null;
 
-                console.log($scope.data);
-
                 tileSvc.updateTile($scope.tile.id, $scope.data)
                     .success(
                     function (data) {
@@ -445,7 +440,6 @@ admin
                     })
                     .error(
                     function (data) {
-                        console.log('here');
                         utilSvc.createNotify('', data, 'alert');
                     })
             };

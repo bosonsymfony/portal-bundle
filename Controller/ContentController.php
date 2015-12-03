@@ -16,6 +16,7 @@ use UCI\Boson\PortalBundle\Form\ContentType;
 use UCI\Boson\PortalBundle\Form\IconType;
 use UCI\Boson\PortalBundle\Form\ImageSetType;
 use UCI\Boson\PortalBundle\Form\ImageType;
+use UCI\Boson\PortalBundle\Util\Globals;
 
 /**
  * Content controller.
@@ -28,6 +29,23 @@ class ContentController extends Controller
     {
         $serializer = $this->get('jms_serializer');
         return $serializer->serialize($data, $format);
+    }
+
+    /**
+     * Return all icons
+     *
+     * @Route("/icons", name="content_icons", options={"expose"=true})
+     * @Method("GET")
+     */
+    public function getIconsAction()
+    {
+        $stylesService = $this->get('portal.styles');
+        $styles = array(
+            'icons' => $stylesService->icons()
+        );
+        $response = new Response($this->serialize($styles));
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
     }
 
     /**
@@ -55,8 +73,33 @@ class ContentController extends Controller
      */
     public function createAction(Request $request)
     {
-        $entity = new Content();
-        $form = $this->createCreateForm($entity);
+        $type = $request->request->get('type');
+        $entity = null;
+        $form = null;
+
+        switch ($type) {
+            case 'icon':
+                $entity = new Icon();
+                $form = $this->createForm(new IconType(), $entity, array(
+                    'action' => $this->generateUrl('content_create'),
+                    'method' => 'POST',
+                ));
+                break;
+            case 'image':
+                $entity = new Image();
+                $form = $this->createForm(new ImageType(), $entity, array(
+                    'action' => $this->generateUrl('content_create'),
+                    'method' => 'POST',
+                ));
+                break;
+            case 'image-set':
+                $entity = new ImageSet();
+                $form = $this->createForm(new ImageSetType(), $entity, array(
+                    'action' => $this->generateUrl('content_create'),
+                    'method' => 'POST',
+                ));
+                break;
+        }
         $form->handleRequest($request);
 
         if ($form->isValid()) {

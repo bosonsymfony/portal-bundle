@@ -36,12 +36,10 @@ admin.controller("AlertModalCtrl", ['$scope', 'modals', function ($scope, modals
             .then(
                 function handleResolve() {
 
-                    console.log("Piped confirm resolved.");
 
                 },
                 function handleReject() {
 
-                    console.warn("Piped confirm rejected.");
 
                 }
             );

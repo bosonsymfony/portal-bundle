@@ -25,7 +25,7 @@ admin.controller('contentCtrl', ['$scope', 'contentSvc', 'modals', 'utilSvc', 'p
         };
 
         $scope.transformImage = function (image) {
-            return portalSvc.getAssetUrl() + '/bundles/portal/img/' + image;
+            return portalSvc.getAssetUrl() + '/images/' + image;
         };
 
         $scope.predicate = 'id';
@@ -126,7 +126,6 @@ admin.controller('contentCtrl', ['$scope', 'contentSvc', 'modals', 'utilSvc', 'p
                 function handleResolve(response) {
 
                     $scope.deleteContent(id);
-                    console.log("Confirm resolved.");
 
                 },
                 function handleReject(error) {
@@ -149,7 +148,6 @@ admin.controller('contentCtrl', ['$scope', 'contentSvc', 'modals', 'utilSvc', 'p
                 function handleResolve(response) {
 
                     $scope.deleteSelected();
-                    console.log("Confirm resolved.");
 
                 },
                 function handleReject(error) {
@@ -171,7 +169,6 @@ admin.controller('contentShowCtrl', ['$scope', 'portalSvc', 'contentSvc', '$stat
             .success(
                 function (data) {
                     $scope.content = data;
-                    console.log(data);
                 })
             .error(
                 function (data) {
@@ -182,11 +179,89 @@ admin.controller('contentShowCtrl', ['$scope', 'portalSvc', 'contentSvc', '$stat
 
     }]);
 
-admin.controller('contentNewCtrl', ['$scope', function ($scope) {
+admin.controller('contentNewCtrl', ['$scope', 'Upload', '$timeout', 'utilSvc', '$state', 'contentSvc',
+    function ($scope, Upload, $timeout, utilSvc, $state, contentSvc) {
 
-    $scope.tabcontrol = "icon";
+        $scope.tabcontrol = "icon";
+        $scope.url = Routing.generate('content_create', {}, true);
 
-}]);
+        $scope.data = {
+            'futbol_PortalBundle_image[tipo]': 'icon'
+        };
+
+        $scope.dataIcon = {
+            'futbol_PortalBundle_icon[icon]': ''
+        };
+
+        $scope.submitIcon = function () {
+            $scope.dataIcon.type = $scope.tabcontrol;
+            contentSvc.createContent($scope.dataIcon)
+                .success(
+                    function (data) {
+                        utilSvc.createNotify('', data, 'success');
+                        $state.go('main.content');
+                    }
+                )
+                .error(
+                    function (data) {
+                        utilSvc.createNotify('', data, 'alert');
+                    }
+                )
+        };
+
+        $scope.submitImage = function (file) {
+            file.upload = Upload.upload({
+                url: $scope.url,
+                data: {
+                    'futbol_PortalBundle_image[file]': file,
+                    'futbol_PortalBundle_image[tipo]': $scope.data['futbol_PortalBundle_image[tipo]'],
+                    'type': $scope.tabcontrol
+                }
+            });
+
+            file.upload.then(
+                function (response) {
+                    utilSvc.createNotify('', response.data, 'success');
+                    $state.go('main.content');
+                },
+                function (response) {
+                    utilSvc.createNotify('', response.data, 'alert');
+                    //}
+                }
+            );
+        };
+
+        $scope.submitImageSet = function (dataImageSet) {
+            console.log(dataImageSet);
+            dataImageSet.type = $scope.tabcontrol;
+            dataImageSet.upload = Upload.upload({
+                url: $scope.url + '?XDEBUG_SESSION_START=default',
+                data: dataImageSet
+            });
+
+            dataImageSet.upload.then(
+                function (response) {
+                    utilSvc.createNotify('', response.data, 'success');
+                    $state.go('main.content');                },
+                function (response) {
+                    utilSvc.createNotify('', response.data, 'alert');
+                }
+            )
+        };
+
+        utilSvc.getIcons()
+            .success(
+                function (data) {
+                    $scope.styles = data;
+                })
+            .error(
+                function (data) {
+
+                }
+            );
+
+
+    }]);
 
 admin.controller('contentUpdateCtrl', ['$scope', function ($scope) {
 

@@ -22,14 +22,14 @@
                         <div ng-if="content.type == 'image'"
                              ng-class="['tile-content',(content.tipo == 'icon')?'iconic':'image-container']">
                             <div ng-if="content.tipo == 'image'" class="frame">
-                                <img ng-src="{{ url }}/bundles/portal/img/{{ content.path}}">
+                                <img ng-src="{{ url }}/images/{{ content.path}}">
                             </div>
                             <img ng-if="content.tipo == 'icon'" class="icon"
-                                 ng-src="{{ url }}/bundles/portal/img/{{ content.path}}">
+                                 ng-src="{{ url }}/images/{{ content.path}}">
                         </div>
                         <!-- Type image-set -->
                         <div ng-if="content.type == 'image-set'" class="tile-content image-set">
-                            <img ng-repeat="path in content.paths" ng-src="{{ url }}/bundles/portal/img/{{ path}}">
+                            <img ng-repeat="path in content.paths" ng-src="{{ url }}/images/{{ path}}">
                         </div>
 
                     </div>

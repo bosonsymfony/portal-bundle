@@ -17,6 +17,7 @@
     </ul>
 
     <div class="frames">
+        <!-- Icon -->
         <div class="frame" ng-class="{active:tabcontrol=='icon'}">
             <form name="futbol_PortalBundle_icon" method="post" ng-submit="submitIcon()">
                 <div class="grid">
@@ -24,13 +25,16 @@
                         <div class="cell auto-size">
                             <label>Icon</label>
 
-                            <div class="input-control text full-size">
-                                <input type="text" name="futbol_PortalBundle_icon[icon]" required="required"
-                                       maxlength="255"/>
+                            <div class="input-control select full-size">
+                                <select id="icon" name="futbol_PortalBundle_icon[icon]"
+                                        ng-model="dataIcon['futbol_PortalBundle_icon[icon]']">
+                                    <option value=""></option>
+                                    <option ng-repeat="(key, icon) in styles.icons" value="{{ key }}">
+                                        {{ icon }}
+                                    </option>
+                                </select>
                             </div>
-
                         </div>
-                        <div class="cell auto-size"></div>
 
                     </div>
                 </div>
@@ -42,15 +46,18 @@
             </form>
         </div>
 
+        <!-- Imagen -->
         <div class="frame" ng-class="{active:tabcontrol=='image'}">
-            <form name="futbol_PortalBundle_image" method="post" enctype="multipart/form-data">
+            <form name="futbol_PortalBundle_image" ng-submit="submitImage(data['futbol_PortalBundle_image[file]'])"
+                  enctype="multipart/form-data">
                 <div class="grid">
                     <div class="row cells2">
                         <div class="cell auto-size">
                             <label>Tipo</label>
 
                             <div class="input-control select full-size">
-                                <select name="futbol_PortalBundle_image[tipo]">
+                                <select name="futbol_PortalBundle_image[tipo]"
+                                        ng-model="data['futbol_PortalBundle_image[tipo]']">
                                     <option value="icon">icon</option>
                                     <option value="image">image</option>
                                 </select>
@@ -60,7 +67,8 @@
                             <label>Image</label>
 
                             <div class="input-control file full-size image_file">
-                                <input type="file" name="futbol_PortalBundle_image[file]" accept="image/*"/>
+                                <input type="file" ngf-select="" ng-model="data['futbol_PortalBundle_image[file]']"
+                                       name="futbol_PortalBundle_image[file]" accept="image/*" required/>
                                 <button class="button">
                                     <span class="mif-folder"></span>
                                 </button>
@@ -76,40 +84,48 @@
                 </div>
             </form>
         </div>
+
+        <!-- ImageSet -->
         <div class="frame" ng-class="{active:tabcontrol=='image-set'}">
-            <form name="futbol_PortalBundle_imageset" method="post" enctype="multipart/form-data">
+            <form name="futbol_PortalBundle_imageset" method="post" ng-submit="submitImageSet(dataImageSet)"
+                  enctype="multipart/form-data">
                 <div class="grid">
                     <div class="row cells2">
                         <div class="cell auto-size">
                             <label class="required">Images</label>
 
                             <div class="input-control file full-size image_file">
-                                <input type="file" name="futbol_PortalBundle_imageset[paths][0]" multiple/>
+                                <input type="file" ngf-select="" name="futbol_PortalBundle_imageset[files][0]"
+                                       ng-model="dataImageSet['futbol_PortalBundle_imageset[files][0]']">
                                 <button class="button">
                                     <span class="mif-folder"></span>
                                 </button>
                             </div>
                             <div class="input-control file full-size image_file">
-                                <input type="file" name="futbol_PortalBundle_imageset[paths][1]" multiple/>
+                                <input type="file" ngf-select="" name="futbol_PortalBundle_imageset[files][1]"
+                                       ng-model="dataImageSet['futbol_PortalBundle_imageset[files][1]']">
                                 <button class="button">
                                     <span class="mif-folder"></span>
                                 </button>
                             </div>
                             <div class="input-control file full-size image_file">
-                                <input type="file" name="futbol_PortalBundle_imageset[paths][2]" multiple/>
+                                <input type="file" ngf-select="" name="futbol_PortalBundle_imageset[files][2]"
+                                       ng-model="dataImageSet['futbol_PortalBundle_imageset[files][2]']">
                                 <button class="button">
                                     <span class="mif-folder"></span>
                                 </button>
                             </div>
                             <div class="input-control file full-size image_file">
-                                <input type="file" name="futbol_PortalBundle_imageset[paths][3]" multiple/>
+                                <input type="file" ngf-select="" name="futbol_PortalBundle_imageset[files][3]"
+                                       ng-model="dataImageSet['futbol_PortalBundle_imageset[files][3]']">
 
                                 <button class="button">
                                     <span class="mif-folder"></span>
                                 </button>
                             </div>
                             <div class="input-control file full-size image_file">
-                                <input type="file" name="futbol_PortalBundle_imageset[paths][4]" multiple/>
+                                <input type="file" ngf-select="" name="futbol_PortalBundle_imageset[files][4]"
+                                       ng-model="dataImageSet['futbol_PortalBundle_imageset[files][4]']">
 
                                 <button class="button">
                                     <span class="mif-folder"></span>
@@ -130,4 +146,21 @@
 
 <script>
     $('.image_file').input();
+    var formatStateContent = function (state) {
+        if (!state.id) {
+            return state.text;
+        }
+
+        var value = state.text;
+
+        return $(
+                '<span class="border-solid padding-2 ' + state.element.value + '"></span>' +
+                '<span>  ' + value + '</span>'
+        );
+    };
+    $("#icon").select2({
+        placeholder: "Seleccione el color",
+        templateResult: formatStateContent,
+        templateSelection: formatStateContent
+    });
 </script>

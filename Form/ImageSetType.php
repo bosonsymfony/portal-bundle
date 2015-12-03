@@ -15,7 +15,8 @@ class ImageSetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('paths');
+//            ->add('paths')
+            ->add('files');
 //            ->add('files','file',array(
 //                'label' => 'Imagenes',
 //                'attr' => array(

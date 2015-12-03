@@ -11,6 +11,10 @@ admin.provider('utilSvc', [function () {
                 return $http.get(Routing.generate('tile_styles', {}, true))
             };
 
+            var getIcons = function () {
+                return $http.get(Routing.generate('content_icons', {}, true))
+            };
+
             var getFunctions = function () {
                 return $http.get(Routing.generate('tile_functions', {}, true))
             };
@@ -81,13 +85,13 @@ admin.provider('utilSvc', [function () {
                 } else if (state.text.indexOf(' image-icon ') != -1) {
                     array = value.split(' image-icon ');
                     return $(
-                        '<img class="border-solid height-100" src="' + portalSvc.getAssetUrl() + '/bundles/portal/img/' + array[1] + '">' +
+                        '<img class="border-solid height-100" src="' + portalSvc.getAssetUrl() + '/images/' + array[1] + '">' +
                         '<span>  ' + array[1] + '</span>'
                     );
                 } else if (state.text.indexOf(' image ') != -1) {
                     array = value.split(' image ');
                     return $(
-                        '<img class="border-solid height-100" src="' + portalSvc.getAssetUrl() + '/bundles/portal/img/' + array[1] + '">' +
+                        '<img class="border-solid height-100" src="' + portalSvc.getAssetUrl() + '/images/' + array[1] + '">' +
                         '<span>  ' + array[1] + '</span>'
                     );
                 }
@@ -116,7 +120,8 @@ admin.provider('utilSvc', [function () {
                 formatStateContent: formatStateContent,
                 changeProperty: changeProperty,
                 createNotify: createNotify,
-                initSelects: initSelects
+                initSelects: initSelects,
+                getIcons: getIcons
             }
         }
     }

@@ -49,14 +49,14 @@
                 <div ng-if="tilehalf.icon.type == 'image'"
                      ng-class="['tile-content',(tilehalf.icon.tipo == 'icon')?'iconic':'image-container']">
                     <div ng-if="tilehalf.icon.tipo == 'image'" class="frame">
-                        <img ng-src="{{ url }}/bundles/portal/img/{{ tilehalf.icon.path}}">
+                        <img ng-src="{{ url }}/images/{{ tilehalf.icon.path}}">
                     </div>
                     <img ng-if="tilehalf.icon.tipo == 'icon'" class="icon"
-                         ng-src="{{ url }}/bundles/portal/img/{{ tilehalf.icon.path}}">
+                         ng-src="{{ url }}/images/{{ tilehalf.icon.path}}">
                 </div>
                 <!-- Type image-set -->
                 <div ng-if="tilehalf.icon.type == 'image-set'" class="tile-content image-set">
-                    <img ng-repeat="path in tilehalf.icon.paths" ng-src="{{ url }}/bundles/portal/img/{{ path}}">
+                    <img ng-repeat="path in tilehalf.icon.paths" ng-src="{{ url }}/images/{{ path}}">
                 </div>
             </div>
         </div>
@@ -161,14 +161,14 @@
                         <div ng-if="content.type == 'image'"
                              ng-class="['tile-content',(content.tipo == 'icon')?'iconic':'image-container']">
                             <div ng-if="content.tipo == 'image'" class="frame">
-                                <img ng-src="{{ url }}/bundles/portal/img/{{ content.path}}">
+                                <img ng-src="{{ url }}/images/{{ content.path}}">
                             </div>
                             <img ng-if="content.tipo == 'icon'" class="icon"
-                                 ng-src="{{ url }}/bundles/portal/img/{{ content.path}}">
+                                 ng-src="{{ url }}/images/{{ content.path}}">
                         </div>
                         <!-- Type image-set -->
                         <div ng-if="content.type == 'image-set'" class="tile-content image-set">
-                            <img ng-repeat="path in content.paths" ng-src="{{ url }}/bundles/portal/img/{{ path}}">
+                            <img ng-repeat="path in content.paths" ng-src="{{ url }}/images/{{ path}}">
                         </div>
 
                     </div>

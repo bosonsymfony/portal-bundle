@@ -25,7 +25,7 @@ admin.provider('contentSvc', [function () {
             };
 
             var deleteContent = function (id) {
-                return $http.delete(Routing.generate('content_delete', {'id': id}, true)+ '?XDEBUG_SESSION_START=default');
+                return $http.delete(Routing.generate('content_delete', {'id': id}, true) + '?XDEBUG_SESSION_START=default');
             };
 
             return {
