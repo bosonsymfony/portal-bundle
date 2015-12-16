@@ -15,9 +15,9 @@
     },
     "require": {
         "php": ">=5.4",
-        "symfony/symfony": "2.3.*",
-        "doctrine/orm": "~2.2,>=2.2.3",
-        "doctrine/doctrine-bundle": "~1.2",
+        "symfony/symfony": "2.7.*",
+        "doctrine/orm": "^2.4.8",
+        "doctrine/doctrine-bundle": "~1.4",
         "doctrine/data-fixtures": "~1.0",
         "doctrine/doctrine-fixtures-bundle": "2.2",
         "jms/serializer-bundle": "0.13.*",
@@ -27,9 +27,9 @@
     },
     "require-dev":{
         "php": ">=5.4",
-        "symfony/symfony": "2.3.*",
-        "doctrine/orm": "~2.2,>=2.2.3",
-        "doctrine/doctrine-bundle": "~1.2",
+        "symfony/symfony": "2.7.*",
+        "doctrine/orm": "^2.4.8",
+        "doctrine/doctrine-bundle": "~1.4",
         "doctrine/data-fixtures": "~1.0",
         "doctrine/doctrine-fixtures-bundle": "2.2",
         "jms/serializer-bundle": "0.13.*",
@@ -48,5 +48,11 @@
             "UCI\\Boson\\IntegratorBundle\\Composer\\ScriptHandler::buildDefinitionSchema"
         ]
     },
-     "minimum-stability": "dev"
+     "minimum-stability": "dev",
+     "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev",
+            "dev-b2.3":   "1.0.x-dev",
+            "dev-b2.7":   "1.1.x-dev"
+        }
 }
