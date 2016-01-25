@@ -14,7 +14,6 @@
         "psr-0": {  "UCI\\Boson\\PortalBundle":"" }
     },
     "require": {
-        "php": ">=5.4",
         "symfony/symfony": "2.7.*",
         "doctrine/orm": "^2.4.8",
         "doctrine/doctrine-bundle": "~1.4",
