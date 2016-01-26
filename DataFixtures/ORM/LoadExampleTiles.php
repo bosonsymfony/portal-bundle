@@ -67,34 +67,16 @@ class LoadExampleTiles implements FixtureInterface, ContainerAwareInterface
                 $manager->persist($tile);
                 $manager->flush();
 
-                for ($k = 0; $k < 3; $k++) {
-                    if ($k == 1) {
-                        $image = new Image();
-                        $image->setPath('outlook.png');
-                        $image->setTipo('icon');
-                        $tile->addContent($image);
-                        $manager->persist($image);
-                    } else if ($k == 0) {
-                        $icon = new Icon();
-                        $icon->setIcon(array_rand($icons));
-                        $tile->addContent($icon);
-                        $manager->persist($icon);
-                    } else {
-                        $imageSet = new ImageSet();
-                        $imageSet->setPaths(array(
-                            'jeki_chan.jpg',
-                            'shvarcenegger.jpg',
-                            'vin_d.jpg',
-                            'jolie.jpg',
-                            'jek_vorobey.jpg'
-                        ));
-                        $tile->addContent($imageSet);
-                        $manager->persist($imageSet);
-                    }
-                    $manager->flush();
-                }
 
+                $icon = new Icon();
+                $icon->setIcon(array_rand($icons));
+                $tile->addContent($icon);
+                $manager->persist($icon);
+
+                $manager->flush();
             }
+
         }
     }
+}
 }
