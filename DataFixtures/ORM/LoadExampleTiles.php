@@ -79,4 +79,4 @@ class LoadExampleTiles implements FixtureInterface, ContainerAwareInterface
         }
     }
 }
-}
+
