@@ -58,7 +58,7 @@ class TileGroupController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return new Response('The TileGroup was created successfully.');
+            return new Response('El grupo de accesos directos fue creado satisfactoriamente.');
         }
 
         return new Response($form->getErrors(), Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -187,7 +187,7 @@ class TileGroupController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return new Response("The TileGroup with id '$id' was updated successfully.");
+            return new Response("El grupo de accesos directos con id '$id' fue modificado satisfactoriamente.");
         }
 
         return new Response('You have an error', Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -212,6 +212,6 @@ class TileGroupController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return new Response("The TileGroup with id '$id' was deleted successfully.");
+        return new Response("El grupo de accesos directos con id '$id' fue eliminado satisfactoriamente.");
     }
 }

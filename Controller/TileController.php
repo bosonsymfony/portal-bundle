@@ -105,7 +105,7 @@ class TileController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return new Response('The Tile was created successfully.');
+            return new Response('El acceso directo fue creado satisfactoriamente.');
         }
 
         return new Response($form->getErrors(), Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -242,7 +242,7 @@ class TileController extends Controller
             }
             $em->flush();
 
-            return new Response("The Tile with id '$id' was updated successfully.");
+            return new Response("El acceso directo con id '$id' fue modificado satisfactoriamente.");
         }
 
         return new Response('You have an error', Response::HTTP_INTERNAL_SERVER_ERROR);
@@ -266,6 +266,6 @@ class TileController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return new Response("The Tile with id '$id' was deleted successfully.");
+        return new Response("El acceso directo con id '$id' fue eliminado satisfactoriamente.");
     }
 }
