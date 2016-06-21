@@ -27,7 +27,7 @@ class TileController extends Controller
     }
 
     /**
-     * Return all styles
+     * Devuelve todos los estilos
      *
      * @Route("/styles", name="tile_styles", options={"expose"=true})
      * @Method("GET")
@@ -46,7 +46,7 @@ class TileController extends Controller
     }
 
     /**
-     * Return all funcionalidades
+     * Devuelve todas las funcionalidades
      *
      * @Route("/functions", name="tile_functions", options={"expose"=true})
      * @Method("GET")
@@ -63,7 +63,8 @@ class TileController extends Controller
     }
 
     /**
-     * Lists all Tile entities.
+     * Lista los accesos directos
+     * Responde al RF 106
      *
      * @Route("/", name="tile", options={"expose"=true})
      * @Method("GET")
@@ -80,7 +81,8 @@ class TileController extends Controller
     }
 
     /**
-     * Creates a new Tile entity.
+     * Adiciona un nuevo acceso directo
+     * Responde al RF 102
      *
      * @Route("/", name="tile_create", options={"expose"=true})
      * @Method("POST")
@@ -210,7 +212,8 @@ class TileController extends Controller
     }
 
     /**
-     * Edits an existing Tile entity.
+     * Modifica un acceso directo
+     * Responde al RF 103
      *
      * @Route("/{id}", name="tile_update", options={"expose"=true})
      * @Method("PUT")
@@ -249,7 +252,9 @@ class TileController extends Controller
     }
 
     /**
-     * Deletes a Tile entity.
+     * Elimina un acceso directo
+     * Responde al RF 104
+     *
      *
      * @Route("/{id}", name="tile_delete", options={"expose"=true})
      * @Method("DELETE")

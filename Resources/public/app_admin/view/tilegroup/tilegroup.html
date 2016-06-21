@@ -42,6 +42,8 @@
     </tr>
     </thead>
     <tbody>
+    <!-- Buscar grupo de accesos directos -->
+    <!-- Responde al RF 114 -->
     <tr ng-repeat="tilegroup in myData|filter:search|orderBy:predicate:reverse as result"
         ng-if="$index >= currentPage*limit && $index < currentPage*limit + toInt(limit)">
         <td>

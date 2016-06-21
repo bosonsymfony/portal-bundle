@@ -42,7 +42,8 @@ class TileGroupController extends Controller
     }
 
     /**
-     * Creates a new TileGroup entity.
+     * Adicionar grupo de accesos directos
+     * Responde al RF 111
      *
      * @Route("/", name="tilegroup_create", options={"expose"=true})
      * @Method("POST")
@@ -166,7 +167,8 @@ class TileGroupController extends Controller
     }
 
     /**
-     * Edits an existing TileGroup entity.
+     * Modificar grupo de accesos directos
+     * Responde al RF 112
      *
      * @Route("/{id}", name="tilegroup_update", options={"expose"=true})
      * @Method("PUT")
@@ -195,7 +197,8 @@ class TileGroupController extends Controller
     }
 
     /**
-     * Deletes a TileGroup entity.
+     * Eliminar grupo de accesos directos
+     * Responde al RF 113
      *
      * @Route("/{id}", name="tilegroup_delete", options={"expose"=true})
      * @Method("DELETE")

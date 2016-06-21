@@ -42,6 +42,8 @@
     </tr>
     </thead>
     <tbody>
+    <!-- Busca un acceso directo -->
+    <!-- Responde al RF 105 -->
     <tr ng-repeat="tile in myData|filter:search|orderBy:predicate:reverse as result"
         ng-if="$index >= currentPage*limit && $index < currentPage*limit + toInt(limit)">
         <td>

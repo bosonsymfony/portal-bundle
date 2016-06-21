@@ -49,7 +49,8 @@ class ContentController extends Controller
     }
 
     /**
-     * Lists all Content entities.
+     * Lista contenidos de acceso directo
+     * Responde al RF 110
      *
      * @Route("/", name="content", options={"expose"=true})
      * @Method("GET")
@@ -66,7 +67,8 @@ class ContentController extends Controller
     }
 
     /**
-     * Creates a new Content entity.
+     * Adicionar un contenido de acceso directo
+     * Responde al RF 107
      *
      * @Route("/", name="content_create", options={"expose"=true})
      * @Method("POST")
@@ -251,7 +253,8 @@ class ContentController extends Controller
     }
 
     /**
-     * Deletes a Content entity.
+     * Eliminar contenido de acceso directo
+     * Responde al RF 108
      *
      * @Route("/{id}", name="content_delete", options={"expose"=true})
      * @Method("DELETE")
