@@ -12,11 +12,11 @@ admin
                     type: 'integer'
                 },
                 title: {
-                    name: 'Title',
+                    name: 'Titulo',
                     type: 'string'
                 },
                 size: {
-                    name: 'Size',
+                    name: 'Tamaño',
                     type: 'integer'
                 }
             }

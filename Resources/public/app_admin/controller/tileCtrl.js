@@ -16,19 +16,19 @@ admin
                     type: 'string'
                 },
                 selected: {
-                    name: 'Selected',
+                    name: 'Seleccionado',
                     type: 'boolean'
                 },
                 backgroung: {
-                    name: 'Backgroung',
+                    name: 'Fondo',
                     type: 'string'
                 },
                 'tileGroup.title': {
-                    name: 'tileGroup',
+                    name: 'Grupo',
                     type: 'string'
                 },
                 size: {
-                    name: 'Size',
+                    name: 'Tamaño',
                     type: 'string'
                 }
             }

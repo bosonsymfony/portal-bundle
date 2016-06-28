@@ -104,7 +104,7 @@ admin.provider('utilSvc', [function () {
 
             var createNotify = function (caption, content, type) {
                 $.Notify({
-                    caption: type.toUpperCase(),
+                    // caption: type.toUpperCase(),
                     content: content,
                     type: type,
                     timeout: 5000,
