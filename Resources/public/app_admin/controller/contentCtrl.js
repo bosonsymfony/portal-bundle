@@ -12,7 +12,7 @@ admin.controller('contentCtrl', ['$scope', 'contentSvc', 'modals', 'utilSvc', 'p
                     type: 'integer'
                 },
                 'type': {
-                    name: 'Type',
+                    name: 'Tipo',
                     type: 'string'
                 }
             }
