@@ -118,7 +118,7 @@ admin.controller('contentCtrl', ['$scope', 'contentSvc', 'modals', 'utilSvc', 'p
             var promise = modals.open(
                 "confirmSingle",
                 {
-                    message: "¿Estas seguro que deseas eliminar el elemento con id: " + id + "?"
+                    message: "¿Estás seguro que deseas eliminar el elemento con id: " + id + "?"
                 }
             );
 
@@ -140,7 +140,7 @@ admin.controller('contentCtrl', ['$scope', 'contentSvc', 'modals', 'utilSvc', 'p
             var promise = modals.open(
                 "confirmMultiple",
                 {
-                    message: "¿Estas seguro que deseas eliminar los elementos seleccionados?"
+                    message: "¿Estás seguro que deseas eliminar los elementos seleccionados?"
                 }
             );
 
