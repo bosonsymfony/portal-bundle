@@ -3,10 +3,12 @@
 namespace UCI\Boson\PortalBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Tile
  *
+ * @UniqueEntity(fields={"funcionalidad"},message="Existe un acceso directo con esa funcionalidad.")
  * @ORM\Table("por_tile")
  * @ORM\Entity(repositoryClass="UCI\Boson\PortalBundle\Repository\TileRepository")
  */
