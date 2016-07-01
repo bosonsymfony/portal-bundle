@@ -100,9 +100,7 @@ class TileController extends Controller
                     'funcionalidad' => $entity->getFuncionalidad()
                 ));
             if ($oldTile != null) {
-                $oldTile->setFuncionalidad(null);
-                $em->persist($oldTile);
-                $em->flush();
+                return new Response("Existe un acceso directo con esa funcionalidad.", Response::HTTP_INTERNAL_SERVER_ERROR);
             }
             $em->persist($entity);
             $em->flush();
