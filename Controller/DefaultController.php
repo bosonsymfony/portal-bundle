@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use UCI\Boson\SeguridadBundle\Controller\AutenticableController;
 
-class DefaultController extends Controller// implements AutenticableController
+class DefaultController extends Controller implements AutenticableController
 {
     public function indexAction()
     {
