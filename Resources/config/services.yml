@@ -1,4 +1,4 @@
 services:
     portal.styles:
         class: UCI\Boson\PortalBundle\Util\Styles
-        arguments: ["%portal%"]
+        arguments: [%portal%]

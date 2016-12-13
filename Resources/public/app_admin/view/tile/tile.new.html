@@ -80,7 +80,7 @@
 
                 <div class="input-control select full-size">
                     <select id="tileGroup" name="futbol_PortalBundle_tile[tileGroup]"
-                            ng-model="data['futbol_PortalBundle_tile[tileGroup]']">
+                            ng-model="data['futbol_PortalBundle_tile[tileGroup]']" required>
                         <option value=""></option>
                         <option ng-repeat="tileg in tilegs" value="{{ tileg.id }}">
                             {{ tileg.title }}
@@ -94,7 +94,7 @@
 
                 <div class="input-control select full-size">
                     <select id="funcionalidad" name="futbol_PortalBundle_tile[funcionalidad]"
-                            ng-model="data['futbol_PortalBundle_tile[funcionalidad]']">
+                            ng-model="data['futbol_PortalBundle_tile[funcionalidad]']" required>
                         <option value=""></option>
                         <option ng-repeat="_function in functions" value="{{ _function.id }}">
                             {{ _function.nombre }}
@@ -110,7 +110,8 @@
     <!--ng-model="data['futbol_PortalBundle_tile[_token]']">-->
 
     <div>
-        <button class="button success" type="submit" name="futbol_PortalBundle_tile[submit]">
+        <button class="button success" type="submit" name="futbol_PortalBundle_tile[submit]"
+                ng-disabled="!futbol_PortalBundle_tile.$valid">
             Aceptar
         </button>
         <a class="button" ui-sref="main.tile_">

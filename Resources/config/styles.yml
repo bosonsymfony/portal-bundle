@@ -1,6 +1,6 @@
 parameters:
     portal:
-        upload_dir: "%kernel.root_dir%"/../web/images
+        upload_dir: %kernel.root_dir%/../web/images
         tile_sizes:
             tile-square: tile-square
             tile-small: tile-small

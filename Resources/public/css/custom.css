@@ -614,3 +614,7 @@ a.jump:hover {
     height: 7px;
     border-radius: 7px;
 }
+
+button[disabled]{
+    cursor: not-allowed!important;
+}
